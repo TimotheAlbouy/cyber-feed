@@ -2,17 +2,37 @@
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8">
-		<title>Login<title/>
-	</head><body><header>
-		<div><a href="Index.html>Accueil</a></div>
-		<div<a href="Register.html">Register</a></div>
-		</header><section>
-			<form action="" methode="post"></form>
+		<title>Login</title>
+		<script src="util.js"></script>
+	</head>
+	<body>
+		<header>
+			<div><a href="/static/index.html">Accueil</a></div>
+			<div><a href="/static/register.html">Register</a></div>
+		</header>
+		<section>
 			<label for="user">Nom d'utilisateur:</label>
-			<input type="text" id="user" name="Username">
-			<label for="password>Mot de passe:</label>
-			<input type="text" id="password" name="Password">
-			<div class="button"><button id="Log in">Log in</button>
-	</div></header><footer>
-		Please contact ENSIBS for more intelligence.
-</footer></body></html>
+			<input type="text" id="user">
+			<label for="password">Mot de passe:</label>
+      <input type="text" id="password">
+			<button onclick="login()">Log in</button>
+		</section>
+		<footer>
+			Please contact ENSIBS for more intelligence.
+		</footer>
+
+		<script>
+		function login() {
+			const params = {
+				username: document.getElementById("username").value,
+				password: document.getElementById("password").value
+			};
+			httpRequest("POST", "/api/login.php", params, null, res => {
+				//
+			}, err => {
+				//
+			});
+		}
+		</script>
+	</body>
+</html>
