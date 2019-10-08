@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Inscription</title>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	
+	<body>
+		
+		<form action='/api/register.php' method='post' class='register'>
+			<div class='container'>
+				<h1>Inscription</h1>
+				<p>Veuillez remplir le formulaire ci-dessous ôur créer un compte.</p>
+		
+				<label for="email"><b>Adresse mail</b></label>
+				<input type='text' placeholder='Email' name='email' required>
+				<br>
+				<label for="password"><b>Mot de passe</b></label>
+				<input type='Password' placeholder='Mot de passe' name='password' required>
+				<br>
+				<label for="repeatPassword"><b>Répétez le mot de passe</b></label>
+				<input type='Password' placeholder='Mot de passe' name='repeatPassword' required>
+		
+				<p>En créant un compte, vous acceptez nos <a href="/static/TermsConditions.html">Termes et conditions d'utilisation.</a>.</p>
+				<button type="submit" class="registerbtn">S'inscrire</button>
+			</div>
+
+			<div class="container signin">
+				<p>Vous avez déjà un compte ? <a href="/static/login.html">Connexion</a>.</p>
+			</div>
+		</form>
+	</body>
+
+
+</html>
