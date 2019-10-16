@@ -19,6 +19,8 @@
       <br>
       <label for="repeatPassword"><b>Répétez le mot de passe</b></label>
       <input id="repeatPassword" type="password" placeholder="Mot de passe">
+	  
+	  <div id="message"></div>
   
       <p>En créant un compte, vous acceptez nos <a href="/static/TermsConditions.html">Termes et conditions d'utilisation</a>.</p>
       <button onclick="register()">S'inscrire</button>
@@ -35,6 +37,7 @@
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
       const repeatPassword = document.getElementById("repeatPassword").value;
+	  console.log("register() called");
 
       if (password === repeatPassword) {
         const params = {
