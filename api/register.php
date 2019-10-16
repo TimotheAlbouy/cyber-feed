@@ -30,4 +30,10 @@ $stmt->execute([
 ]);
 
 http_response_code(201);
-echo("gneugneu");
+
+$token = "gneugneu";
+$res = [
+  "token" => $token
+];
+$jsonRes = json_encode($res);
+echo($jsonRes);
