@@ -2,10 +2,9 @@
 
 require_once("api-common.php");
 
-// Guard clauses
+header("Access-Control-Allow-Methods: POST");
 
-if ($_SERVER["REQUEST_METHOD"] !== "POST")
-  exitError(405, "Only POST requests are allowed.");
+// Guard clauses
 
 if (!isset($_POST["username"]) || !isset($_POST["password"]))
   exitError(400, "Missing 'username' or 'password' fields.");
