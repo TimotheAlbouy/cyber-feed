@@ -1,0 +1,7 @@
+- https://stackoverflow.com/questions/712392/send-email-using-the-gmail-smtp-server-from-a-php-page
+- https://www.youtube.com/watch?v=zv0kZKC6GAM
+- escape SQL injections PHP
+- vérifications que coté PHP
+- https://stackoverflow.com/questions/1996122/how-to-prevent-xss-with-html-php
+- https://stackoverflow.com/questions/1973140/parsing-json-from-xmlhttprequest-responsejson
+- https://www.nicoespeon.com/fr/2013/08/quel-git-workflow-pour-mon-projet/

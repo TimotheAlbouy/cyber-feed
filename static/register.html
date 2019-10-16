@@ -1,35 +1,53 @@
 <!DOCTYPE html>
-
 <html>
+  <head>
+    <title>Inscription</title>
+    <meta charset="utf-8" />
+    <script src="util.js"></script>
+  </head>
+  
+  <body>
+    <div>
+      <h1>Inscription</h1>
+      <p>Veuillez remplir le formulaire ci-dessous pour créer un compte.</p>
+  
+      <label for="username"><b>Nom d'utilisateur</b></label>
+      <input id="username" type="text" placeholder="Nom d'utilisateur" />
+      <br>
+      <label for="password"><b>Mot de passe</b></label>
+      <input id="password" type="password" placeholder="Mot de passe">
+      <br>
+      <label for="repeatPassword"><b>Répétez le mot de passe</b></label>
+      <input id="repeatPassword" type="password" placeholder="Mot de passe">
+  
+      <p>En créant un compte, vous acceptez nos <a href="/static/TermsConditions.html">Termes et conditions d'utilisation</a>.</p>
+      <button onclick="register()">S'inscrire</button>
+    </div>
 
-	<head>
-		<title>Inscription</title>
-		<meta charset="utf-8"/>
-		<link rel="stylesheet" type="text/css" href="style.css">
-	</head>
-	
-	<body>
-			<div class='container'>
-				<h1>Inscription</h1>
-				<p>Veuillez remplir le formulaire ci-dessous ôur créer un compte.</p>
-		
-				<label for="username"><b>Nom d'utilisateur</b></label>
-				<input id='username' type='text' placeholder="Nom d/'utilisateur">
-				<br>
-				<label for="password"><b>Mot de passe</b></label>
-				<input id='password' type='password' placeholder='Mot de passe'>
-				<br>
-				<label for="repeatPassword"><b>Répétez le mot de passe</b></label>
-				<input id='repeatPassword' type='password' placeholder='Mot de passe'>
-		
-				<p>En créant un compte, vous acceptez nos <a href="/static/TermsConditions.html">Termes et conditions d'utilisation.</a>.</p>
-				<button id='registerSubmit' type="submit" class="registerbtn">S'inscrire</button>
-			</div>
+    <div>
+      <p>Vous avez déjà un compte ? <a href="/static/login.html">Connexion</a>.</p>
+    </div>
 
-			<div class="container signin">
-				<p>Vous avez déjà un compte ? <a href="/static/login.html">Connexion</a>.</p>
-			</div>
-	</body>
+    <script>
+    function register() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const repeatPassword = document.getElementById("repeatPassword").value;
 
-
+      if (password === repeatPassword) {
+        const params = {
+          username: username,
+          password: password
+        };
+        httpRequest("POST", "/api/register.php", params, null, res => {
+          //
+        }, err => {
+          //
+        });
+      } else {
+        //
+      }
+    }
+    </script>
+  </body>
 </html>

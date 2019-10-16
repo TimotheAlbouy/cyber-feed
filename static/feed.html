@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Flux</title>
+    <meta charset="UTF-8"/>
+  </head>
+
+  <body>
+    <div>
+      <h1>Mes flux</h1>
+      
+      <table>
+        <tr>
+          <th><b>Image</b></th>
+          <th><b>Titre</b></th>
+          <th><b>Description</b></th>
+          <th><b>Lien</b></th>
+        </tr>
+        
+        <tr>
+          <td><img src="" href="" alt="Erreur affichage"></td>
+          <td>Actualité du 08/10/2019</td>
+          <td>Voici l'actualité du 08/10/2019</td>
+          <td>https://wwv.zone-telechargement.net/rss.xml</td>
+      </table>
+    </div>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const headers = {
+        //
+      };
+      httpRequest("GET", "/api/feed.php", null, headers, res => {
+        //
+      }, err => {
+        //
+      });
+    });
+    </script>
+  </body>
+</html>

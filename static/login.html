@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
-	<head>
-		<meta charset="UTF-8">
-		<title>Login</title>
-		<script src="util.js"></script>
-	</head>
-	<body>
-		<header>
-			<div><a href="/static/index.html">Accueil</a></div>
-			<div><a href="/static/register.html">Register</a></div>
-		</header>
-		<section>
-			<label for="user">Nom d'utilisateur:</label>
-			<input type="text" id="user">
-			<label for="password">Mot de passe:</label>
-      <input type="text" id="password">
-			<button onclick="login()">Log in</button>
-		</section>
-		<footer>
-			Please contact ENSIBS for more intelligence.
-		</footer>
+  <head>
+    <meta charset="UTF-8">
+    <title>Connexion</title>
+    <script src="util.js"></script>
+  </head>
 
-		<script>
-		function login() {
-			const params = {
-				username: document.getElementById("username").value,
-				password: document.getElementById("password").value
-			};
-			httpRequest("POST", "/api/login.php", params, null, res => {
-				//
-			}, err => {
-				//
-			});
-		}
-		</script>
-	</body>
+  <body>
+    <header>
+      <div><a href="/static/index.html">Accueil</a></div>
+      <div><a href="/static/register.html">Register</a></div>
+    </header>
+
+    <div>
+      <label for="user">Nom d'utilisateur:</label>
+      <input type="text" id="user">
+      <label for="password">Mot de passe:</label>
+      <input type="text" id="password">
+      <button onclick="login()">Log in</button>
+    </div>
+
+    <footer>
+      Please contact ENSIBS for more intelligence.
+    </footer>
+
+    <script>
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const params = {
+        username: username,
+        password: password
+      };
+      httpRequest("POST", "/api/login.php", params, null, res => {
+        //
+      }, err => {
+        //
+      });
+    }
+    </script>
+  </body>
 </html>
