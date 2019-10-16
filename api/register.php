@@ -4,15 +4,13 @@ require_once("api-common.php");
 
 // Guard clauses
 
-var_dump($_POST);
-
 if ($_SERVER["REQUEST_METHOD"] !== "POST")
   exitError(405, "Only POST requests are allowed.");
 
 if (!isset($_POST["username"]) || !isset($_POST["password"]))
   exitError(400, "Missing 'username' or 'password' fields.");
 
-if (ctype_alnum($username))
+if (ctype_alnum($_POST["username"]))
   exitError(400, "Only alphanumerical characters are allowed for the username.");
 
 if (false)
@@ -22,9 +20,9 @@ if (false)
 
 $username = $_POST["username"];
 $password = $_POST["password"];
-$hashed_password = password_hash($password);
+$hashed_password = password_hash($password, true);
 
-$sql = "INSERT INTO Users (username, hashed_password) VALUES (:username, :hashed_password);";
+$sql = "INSERT INTO User (username, hashed_password) VALUES (:username, :hashed_password);";
 $stmt = $db->prepare($sql);
 $stmt->execute([
   ":username" => $username,
