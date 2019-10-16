@@ -2,6 +2,8 @@
 
 require_once("database/database.php");
 
+header("Access-Control-Allow-Origin: *");
+
 header('Content-Type: application/json');
 
 function exitError($code, $message) {
