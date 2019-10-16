@@ -1,5 +1,5 @@
 function httpRequest(method, url, params, headers, success, error) {
-  let req = XMLHttpRequest();
+  let req = new XMLHttpRequest();
   
   req.onreadstatechange = function(event) {
     if (this.readyState === XMLHttpRequest.DONE) {
@@ -9,9 +9,23 @@ function httpRequest(method, url, params, headers, success, error) {
     }
   };
 
-  for (let header of headers)
-    req.setRequestHeader(header, headers[header]);
+  if (headers !== null) {
+    for (let header of headers)
+      req.setRequestHeader(header, headers[header]);
+  }
+
+  paramsStr = encodeParams(params);
+  console.log(paramsStr);
 
   req.open(method, url, true);
-  req.send(params);
+  req.send(paramsStr);
+}
+
+function encodeParams(params) {
+  let ret = "";
+  if (params !== null) {
+    for (let key of params)
+      ret += key + "=" + params[key] + "&";
+  }
+  return ret;
 }

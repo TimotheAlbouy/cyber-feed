@@ -28,6 +28,8 @@
       <p>Vous avez déjà un compte ? <a href="/static/login.html">Connexion</a>.</p>
     </div>
 
+    <div id="message"></div>
+
     <script>
     function register() {
       const username = document.getElementById("username").value;
@@ -39,8 +41,8 @@
           username: username,
           password: password
         };
-        httpRequest("POST", "/api/register.php", params, null, res => {
-          //
+        httpRequest("POST", "/cyber-feed/api/register.php", params, null, res => {
+          document.getElementById("message").innerHTML = "Connexion réussie";
         }, err => {
           //
         });
