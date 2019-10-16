@@ -7,7 +7,8 @@ $migrations = [];
 $migrations["User"] = "
 CREATE OR REPLACE TABLE `User` (
   username VARCHAR(255) PRIMARY KEY,
-  hashed_password VARCHAR(255)
+  hashed_password VARCHAR(255),
+  is_admin BOOLEAN
 );
 ";
 
