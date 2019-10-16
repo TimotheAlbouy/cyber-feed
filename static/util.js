@@ -10,7 +10,7 @@ function httpRequest(method, url, params, headers, success, error) {
   };
 
   if (headers !== null) {
-    for (let header of headers)
+    for (let header in headers)
       req.setRequestHeader(header, headers[header]);
   }
 
@@ -18,13 +18,17 @@ function httpRequest(method, url, params, headers, success, error) {
   console.log(paramsStr);
 
   req.open(method, url, true);
+
+  req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
   req.send(paramsStr);
 }
 
 function encodeParams(params) {
   let ret = "";
+  console.log(params);
   if (params !== null) {
-    for (let key of params)
+    for (let key in params)
       ret += key + "=" + params[key] + "&";
   }
   return ret;

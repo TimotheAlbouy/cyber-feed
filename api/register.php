@@ -6,10 +6,13 @@ header("Access-Control-Allow-Methods: POST");
 
 // Guard clauses
 
+if ($_SERVER["REQUEST_METHOD"] !== "POST")
+  exitError(405, "Only POST requests are allowed.");
+
 if (!isset($_POST["username"]) || !isset($_POST["password"]))
   exitError(400, "Missing 'username' or 'password' fields.");
 
-if (ctype_alnum($_POST["username"]))
+if (!ctype_alnum($_POST["username"]))
   exitError(400, "Only alphanumerical characters are allowed for the username.");
 
 if (false)
