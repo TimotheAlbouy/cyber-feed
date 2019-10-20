@@ -2,6 +2,28 @@
 
 Par Timothé ALBOUY, Arnaud PERNET et Gwenn QUELO, dans le cadre du projet de cybersécurité de deuxième année d'ingénieur à l'ENSIBS.
 
+## A faire
+
+**Failles de sécurité :**
+
+- empêcher les injections SQL avec les prepared statements de PDO
+
+- Hasher les mots de passe et les tokens dans la base de données avec password_hash() (vérification avec password_verify())
+
+- les failles XSS, qu'est ce que c'est ? https://www.youtube.com/watch?v=zv0kZKC6GAM
+
+- empêcher le XSS depuis PHP : https://stackoverflow.com/questions/1996122/how-to-prevent-xss-with-html-php
+
+Note : certains flux RSS que l'on afficherait sur le site pourraient être malveillants et contenir des injections de JavaScript. L'échappement des caractères spéciaux devra donc plutôt se faire côté client et pas côté serveur (PHP).
+
+**Améliorations possibles :**
+
+- Corps de requêtes à l'API en JSON : https://stackoverflow.com/questions/1973140/parsing-json-from-xmlhttprequest-responsejson
+
+- Utilisation du serveur SMTP de Gmail pour l'envoi de mail en PHP : https://stackoverflow.com/questions/712392/send-email-using-the-gmail-smtp-server-from-a-php-page
+
+- Suivre un workflow propre : https://www.nicoespeon.com/fr/2013/08/quel-git-workflow-pour-mon-projet/
+
 ## Installation
 
 L'installation de Cyber-feed nécessite un serveur Apache 2 exécutant du PHP>7 et un serveur de base de données MySQL/MariaDB. Le fichier des variables d'environnement `env.php` doit également être créé à partir du fichier `env.example.php`.

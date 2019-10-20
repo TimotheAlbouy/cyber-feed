@@ -15,9 +15,9 @@ $migrations = [];
 $migrations["User"] = "
 CREATE OR REPLACE TABLE `User` (
   username VARCHAR(36) PRIMARY KEY,
-  hashed_password VARCHAR(64) NOT NULL,
+  password_hash VARCHAR(64) NOT NULL,
   is_admin BOOLEAN DEFAULT FALSE NOT NULL,
-  token VARCHAR(32) NOT NULL,
+  token_hash VARCHAR(64) NOT NULL,
   token_expiration DATETIME NOT NULL
 );
 ";
@@ -39,7 +39,8 @@ CREATE OR REPLACE TABLE `FeedUser` (
 foreach ($migrations as $name => $migration) {
   try {
     $db->exec($migration);
-    echo("Table " . $name . " migrated.<br>");
+    echo("Table " . $name . " migrated.");
+    echo("<br><br>");
   } catch (PDOException $e) {
     echo("Error during " . $name . " migration: " . $e->getMessage() . "<br>");
   }
