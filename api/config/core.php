@@ -49,22 +49,27 @@ function generateToken($size=32) {
 }
 
 /**
- * Stop the execution if the user didn't provide a valid token, continue otherwise.
+ * Stop the execution if the user didn't provide a valid token, return the data otherwise.
  * @param string $token
  *     the token provided by the user
  * @param PDO $db
  *     the database connection
+ * @return array
+ *     an associative array containing the user's information
  */
 function authenticate($token, $db) {
-  $user = $stmt->fetch(PDO::FETCH_ASSOC);
-  
-  // Guard clauses
-  if ($user !== false)
-    exitError(401, "The token is not associated with any account.");
+  if (!isset($token))
+    exitError(401, "No token provided.");
+
+  $user = getUserByToken($token, $db);
+  if (!$user)
+    exitError(401, "The token does not exist.");
   
   $tokenExpiration = DateTime::createFromFormat("Y-m-d H:i:s", $user["token_expiration"]);
   if ($tokenExpiration < new DateTime("now"))
     exitError(401, "Expired access token.");
+
+  return $user;
 }
 
 /**
@@ -78,7 +83,7 @@ function authenticate($token, $db) {
  *     - false iff the username does not exist
  */
 function getUserById($username, $db) {
-  $sql = "SELECT * FROM `User` WHERE username = :username";
+  $sql = "SELECT username, token_hash, token_expiration FROM `User` WHERE username = :username";
   $stmt = $db->prepare($sql);
   $stmt->execute([":username" => $username]);
   return $stmt->fetch(PDO::FETCH_ASSOC);

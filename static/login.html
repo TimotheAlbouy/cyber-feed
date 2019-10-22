@@ -8,8 +8,8 @@
 
   <body>
     <header>
-      <span><a href="index.html">Accueil</a>
-      <a href="register.html">S'inscrire</a></span>
+      <div><a href="index.html">Accueil</a></div>
+      <div>href="register.html">S'inscrire</a></div>
     </header>
 
     <div>
@@ -34,7 +34,8 @@
         username: username,
         password: password
       };
-      httpRequest("POST", "../api/login.php", params, null, res => {
+	  
+      apiRequest("POST", "login.php", params, null, res => {
         document.getElementById("message").innerHTML = "Connexion réussie.";
       }, err => {
         document.getElementById("message").innerHTML = "Echec de la connexion.";
