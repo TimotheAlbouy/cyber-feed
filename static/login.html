@@ -8,8 +8,8 @@
 
   <body>
     <header>
-      <div><a href="/static/index.html">Accueil</a></div>
-      <div><a href="/static/register.html">Register</a></div>
+      <span><a href="index.html">Accueil</a>
+      <a href="register.html">S'inscrire</a></span>
     </header>
 
     <div>
@@ -19,9 +19,11 @@
       <input type="text" id="password">
       <button onclick="login()">Log in</button>
     </div>
+	
+	<div class="message"></div>
 
     <footer>
-      Please contact ENSIBS for more intelligence.
+      Merci de contacter l'ENSIBS pour plus de renseignements.
     </footer>
 
     <script>
@@ -32,10 +34,10 @@
         username: username,
         password: password
       };
-      httpRequest("POST", "/api/login.php", params, null, res => {
-        //
+      httpRequest("POST", "../api/login.php", params, null, res => {
+        document.getElementById("message").innerHTML = "Connexion réussie.";
       }, err => {
-        //
+        document.getElementById("message").innerHTML = "Echec de la connexion.";
       });
     }
     </script>
