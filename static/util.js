@@ -1,5 +1,5 @@
-function httpRequest(method, url, params, headers, success, error) {
-  let req = new XMLHttpRequest();
+function apiRequest(method, route, params, headers, success, error) {
+  const req = new XMLHttpRequest();
   
   req.onreadstatechange = function(event) {
     if (this.readyState === XMLHttpRequest.DONE) {
@@ -9,16 +9,15 @@ function httpRequest(method, url, params, headers, success, error) {
     }
   };
 
-  if (headers !== null) {
-    for (let header in headers)
-      req.setRequestHeader(header, headers[header]);
-  }
-
-  paramsStr = encodeParams(params);
-  console.log(paramsStr);
+  const paramsStr = encodeParams(params);
+  const url = "localhost/cyber-feed/api/" + route;
 
   req.open(method, url, true);
 
+  if (headers !== null) {
+    for (const header in headers)
+      req.setRequestHeader(header, headers[header]);
+  }
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
   req.send(paramsStr);
@@ -26,10 +25,13 @@ function httpRequest(method, url, params, headers, success, error) {
 
 function encodeParams(params) {
   let ret = "";
-  console.log(params);
   if (params !== null) {
     for (let key in params)
       ret += key + "=" + params[key] + "&";
   }
   return ret;
+}
+
+function retrieveToken() {
+  return sessionStorage.getItem("cyber-feed-api-token");
 }

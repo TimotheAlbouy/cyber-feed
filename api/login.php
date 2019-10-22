@@ -39,7 +39,7 @@ WHERE username = :username;
 $stmt = $db->prepare($sql);
 $stmt->execute([
   ":username" => $username,
-  ":token_hash" => $token,
+  ":token_hash" => $tokenHash,
   ":token_expiration" => $tokenExpiration->format("Y-m-d H:i:s")
 ]);
 

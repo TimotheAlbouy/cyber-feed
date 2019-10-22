@@ -22,12 +22,12 @@
 	  
 	  <div id="message"></div>
   
-      <p>En créant un compte, vous acceptez nos <a href="/static/TermsConditions.html">Termes et conditions d'utilisation</a>.</p>
+      <p>En créant un compte, vous acceptez nos <a href="#">termes et conditions d'utilisation</a>.</p>
       <button onclick="register()">S'inscrire</button>
     </div>
 
     <div>
-      <p>Vous avez déjà un compte ? <a href="/static/login.html">Connexion</a>.</p>
+      <p>Vous avez déjà un compte ? <a href="login.html">Connexion</a>.</p>
     </div>
 
     <div id="message"></div>
@@ -37,14 +37,13 @@
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
       const repeatPassword = document.getElementById("repeatPassword").value;
-	    console.log("register() called");
 
       if (password === repeatPassword) {
         const params = {
           username: username,
           password: password
         };
-        httpRequest("POST", "/cyber-feed/api/register.php", params, null, res => {
+        apiRequest("POST", "register.php", params, null, res => {
           document.getElementById("message").innerHTML = "Connexion réussie";
         }, err => {
           //
