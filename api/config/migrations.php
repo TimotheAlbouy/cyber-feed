@@ -18,7 +18,7 @@ CREATE OR REPLACE TABLE `User` (
   username VARCHAR(36) PRIMARY KEY,
   password_hash VARCHAR(64) NOT NULL,
   is_admin BOOLEAN DEFAULT FALSE NOT NULL,
-  token_hash VARCHAR(64) NOT NULL,
+  token VARCHAR(32) NOT NULL,
   token_expiration DATETIME NOT NULL
 );
 ";
@@ -31,8 +31,8 @@ CREATE OR REPLACE TABLE `Feed` (
 
 $migrations["FeedUser"] = "
 CREATE OR REPLACE TABLE `FeedUser` (
-  username VARCHAR(255),
-  url VARCHAR(255),
+  url VARCHAR(255) REFERENCES `Feed`(url),
+  username VARCHAR(255) REFERENCES `User`(username),
   PRIMARY KEY(username, url)
 );
 ";

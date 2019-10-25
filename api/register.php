@@ -1,6 +1,7 @@
 <?php
 
 require_once("config/core.php");
+require_once("model/User.php");
 
 header("Access-Control-Allow-Methods: POST");
 
@@ -26,31 +27,26 @@ if (strlen($username) < 3)
 if (36 < strlen($username))
   exitError(400, "The username must be at most 36 characters.");
 
-$user = getUserById($username, $db);
+$user = User::findById($username);
 
 if ($user)
   exitError(409, "Username already exists in the database.");
 
 // Code
-$passwordHash = password_hash($password, PASSWORD_DEFAULT);
-$token = generateToken();
-$tokenHash = hash("sha256", $token);
-$tokenExpiration = new DateTime("now");
-$tokenExpiration->add(new DateInterval("P1D"));
+$user = new User();
 
-$sql = "
-INSERT INTO `User` (username, password_hash, token_hash, token_expiration)
-VALUES (:username, :password_hash, :token_hash, :token_expiration);
-";
+$expirationDate = new DateTime("now");
+$expirationDate->add(new DateInterval("P1D"));
+$token_expiration = $expirationDate->format("Y-m-d H:i:s");
 
-$stmt = $db->prepare($sql);
-$stmt->execute([
-  ":username" => $username,
-  ":password_hash" => $passwordHash,
-  ":token_hash" => $tokenHash,
-  ":token_expiration" => $tokenExpiration->format("Y-m-d H:i:s")
-]);
+$user->username = $username;
+$user->is_admin = false;
+$user->password_hash = password_hash($password, PASSWORD_DEFAULT);
+$user->token = generateToken();
+$user->token_expiration = $token_expiration;
+
+$user->create();
 
 http_response_code(201);
-$res = ["token" => $token];
+$res = ["token" => $user->token];
 echo(json_encode($res));
