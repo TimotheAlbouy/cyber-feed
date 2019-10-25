@@ -38,6 +38,11 @@ class FeedUser extends Model {
     }
   }
   
+  /**
+   * Check if the feed-user association already exists in the database.
+   * @return bool
+   *     true iff the feed-user association already exists
+   */
   public function exists() {
     try {
       $db = Database::getInstance();

@@ -1,7 +1,10 @@
 <?php
 
 require_once("config/core.php");
+
 require_once("model/User.php");
+require_once("model/Feed.php");
+require_once("model/FeedUser.php");
 
 header("Access-Control-Allow-Methods: POST");
 
@@ -32,9 +35,6 @@ if ($xmlErrors)
   exitError(400, "The given feed does not follow the XML format.");
 
 // Code
-require_once("model/Feed.php");
-require_once("model/FeedUser.php");
-
 $feed = new Feed();
 $feed->url = $url;
 
