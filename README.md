@@ -2,15 +2,25 @@
 
 Par Timothé ALBOUY, Arnaud PERNET et Gwenn QUELO, dans le cadre du projet de cybersécurité de deuxième année d'ingénieur à l'ENSIBS.
 
-## A faire
+## Utile
+
+**Flux XML :**
+
+https://blog.feedspot.com/cyber_security_rss_feeds/
+https://www.cshub.com/rss-feeds
+https://www.ouest-france.fr/rss-en-continu.xml
 
 **Failles de sécurité :**
 
 - empêcher les injections SQL avec les prepared statements de PDO
 
-- Hasher les mots de passe et les tokens dans la base de données avec password_hash() (vérification avec password_verify())
+- Bonnes pratiques de stockage des mots de passe dans la base de données : https://stackoverflow.com/questions/401656/secure-hash-and-salt-for-php-passwords?rq=1
+
+- Failles CSRF pour attaquer des sites basés sur les cookies : https://security.stackexchange.com/questions/157061/how-does-csrf-correlate-with-same-origin-policy
 
 - les failles XSS, qu'est ce que c'est ? https://www.youtube.com/watch?v=zv0kZKC6GAM
+
+- stocker les tokens dans HttpOnly pour éviter les XSS : https://stackoverflow.com/questions/37800804/are-jwts-a-secure-option-for-user-authentication/37809063#37809063 https://www.owasp.org/index.php/HttpOnly
 
 - empêcher le XSS depuis PHP : https://stackoverflow.com/questions/1996122/how-to-prevent-xss-with-html-php
 
