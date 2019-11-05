@@ -21,11 +21,8 @@ $user = User::authenticate($headers["Authorization"]);
 
 if (!isset($_POST["url"]))
   exitError(400, "Missing 'url' field.");
-$url = $_POST["url"];
 
-$xml = @simplexml_load_file($url);
-if (!$xml)
-  exitError(400, "Invalid feed (URL invalid or not following the XML format).");
+$url = $_POST["url"];
 
 // Code
 $feed = new Feed();

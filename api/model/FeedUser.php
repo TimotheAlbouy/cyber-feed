@@ -83,4 +83,21 @@ class FeedUser extends Model {
     }
   }
 
+  /**
+   * Delete the feed-user association in the database.
+   */
+  public function delete() {
+    try {
+      $db = Database::getInstance();
+      $sql = "DELETE FROM `FeedUser` WHERE feed_id = :feed_id AND username = :username";
+      $stmt = $db->prepare($sql);
+      $stmt->execute([
+        "feed_id" => $this->feed_id,
+        "username" => $this->username
+      ]);
+    } catch (PDOException $e) {
+      exitError(500, "Internal error.");
+    }
+  }
+
 }
