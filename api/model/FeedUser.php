@@ -12,7 +12,7 @@ class FeedUser extends Model {
    */
   public function __construct($props=null) {
     $this->props = [
-      "url" => null,
+      "feed_id" => null,
       "username" => null
     ];
     if (isset($props))
@@ -27,14 +27,14 @@ class FeedUser extends Model {
   public function create() {
     try {
       $db = Database::getInstance();
-      $sql = "INSERT INTO `FeedUser` (url, username) VALUES (:url, :username)";
+      $sql = "INSERT INTO `FeedUser` (feed_id, username) VALUES (:feed_id, :username)";
       $stmt = $db->prepare($sql);
       $stmt->execute([
-        "url" => $this->url,
+        "feed_id" => $this->feed_id,
         "username" => $this->username
       ]);
     } catch (PDOException $e) {
-      exitError(500, "Internal error.");
+      exitError(500, "Internal error.".$e->getMessage());
     }
   }
   
@@ -46,10 +46,10 @@ class FeedUser extends Model {
   public function exists() {
     try {
       $db = Database::getInstance();
-      $sql = "SELECT * FROM `FeedUser` WHERE url = :url AND username = :username";
+      $sql = "SELECT * FROM `FeedUser` WHERE feed_id = :feed_id AND username = :username";
       $stmt = $db->prepare($sql);
       $stmt->execute([
-        "url" => $this->url,
+        "feed_id" => $this->feed_id,
         "username" => $this->username
       ]);
       return $stmt->rowCount() !== 0;

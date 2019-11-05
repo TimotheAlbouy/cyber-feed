@@ -25,15 +25,16 @@ CREATE OR REPLACE TABLE `User` (
 
 $migrations["Feed"] = "
 CREATE OR REPLACE TABLE `Feed` (
-  url VARCHAR(255) PRIMARY KEY
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  url VARCHAR(255) NOT NULL UNIQUE
 );
 ";
 
 $migrations["FeedUser"] = "
 CREATE OR REPLACE TABLE `FeedUser` (
-  url VARCHAR(255) REFERENCES `Feed`(url),
+  feed_id VARCHAR(255) REFERENCES `Feed`(id),
   username VARCHAR(255) REFERENCES `User`(username),
-  PRIMARY KEY(username, url)
+  PRIMARY KEY(username, feed_id)
 );
 ";
 
