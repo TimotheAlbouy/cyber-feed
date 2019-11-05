@@ -30,7 +30,7 @@
       <p>Vous avez déjà un compte ? <a href="login.html">Connexion</a>.</p>
     </div>
 
-    <div id="message"></div>
+    <div class="message"></div>
 
     <script>
     function register() {
@@ -43,13 +43,14 @@
           username: username,
           password: password
         };
+		
         apiRequest("POST", "register.php", params, null, res => {
           document.getElementById("message").innerHTML = "Connexion réussie";
         }, err => {
-          //
+          document.getElementById("message").innerHTML = "Erreur lors de la creation du compte.";
         });
       } else {
-        //
+        document.getElementById("message").innerHTML = "Les mots de passe entrés ne correspondent pas.";
       }
     }
     </script>
