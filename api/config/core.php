@@ -1,6 +1,5 @@
 <?php
 
-require_once("Database.php");
 require_once("util.php");
 
 // Set the headers of the HTTP responses of the API
