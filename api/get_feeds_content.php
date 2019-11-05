@@ -19,12 +19,24 @@ if (!isset($headers["Authorization"]))
 $user = User::authenticate($headers["Authorization"]);
 
 // Code
-$feedsList = FeedUser::findByUsername($user->username);
+$feeds = FeedUser::findByUsername($user->username);
 
 $res = [];
-foreach ($feedsList as $feed) {
-  $xml = @simplexml_load_file($feed->url);
-  if ($xml) {
+foreach ($feeds as $feed) {
+  $doc = new DOMDocument();
+  //$xml = @simplexml_load_file($feed->url);
+  $doc->load($feed["url"]);
+  if ($doc) {
+    $itemsXML = $doc->getElementsByTagName("item");
+    foreach ($itemsXML as $itemXML) {
+      $item = [
+        "title" => $itemXML->getElementsByTagName("title")[0]->textContent,
+        "description" => $itemXML->getElementsByTagName("description")[0]->textContent,
+        "pubDate" => $itemXML->getElementsByTagName("pubDate")[0]->textContent,
+        "link" => $itemXML->getElementsByTagName("link")[0]->textContent
+      ];
+      $res[] = $item;
+    }
     //exitError(400, "Invalid feed (URL invalid or not following the XML format).");
   }
 }

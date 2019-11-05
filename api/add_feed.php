@@ -24,6 +24,10 @@ if (!isset($_POST["url"]))
 
 $url = $_POST["url"];
 
+$xml = @simplexml_load_file($url);
+if (!$xml)
+  exitError(400, "Invalid feed (URL invalid or not following the XML format).");
+
 // Code
 $feed = new Feed();
 $feed->url = $url;
@@ -38,6 +42,6 @@ if ($feedUser->exists())
   exitError(409, "The feed already exists in the user's list.");
 $feedUser->create();
 
-http_response_code(201);
+http_response_code(204);
 $res = null;
 echo(json_encode($res));
