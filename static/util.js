@@ -16,18 +16,17 @@
  */
 function apiRequest(method, route, params, headers, success, error) {
   const req = new XMLHttpRequest();
-  
-  req.onreadstatechange = function(event) {
-    if (this.readyState === XMLHttpRequest.DONE) {
+
+  req.onreadystatechange = function() {
+    if (req.readyState === XMLHttpRequest.DONE) {
       if (Math.floor(this.status/100) === 2) // If status code starts with '2', success
         success(this);
       else error(this); // Else, error
     }
   };
 
+  const url = "/cyber-feed/api/" + route;
   const paramsStr = encodeParams(params);
-  const url = "localhost/cyber-feed/api/" + route;
-
   req.open(method, url, true);
 
   if (headers !== null) {
@@ -40,8 +39,9 @@ function apiRequest(method, route, params, headers, success, error) {
 }
 
 /**
- * 
- * @param {*} params 
+ * Encode the parameters following the x-www-form-urlencoded standard.
+ * @param {Object} params - the list of parameters 
+ * @returns {string} the encoded parameters
  */
 function encodeParams(params) {
   let ret = "";
@@ -53,8 +53,17 @@ function encodeParams(params) {
 }
 
 /**
- * Retrieve the token from the local storage.
+ * Retrieve the token from the session storage.
+ * @returns {string} the token
  */
-function retrieveToken() {
-  return sessionStorage.getItem("cyber-feed-api-token");
+function getToken() {
+  return localStorage.getItem("cyber-feed-api-token");
+}
+
+/**
+ * Store the token in the session storage.
+ * @param {string} token the token
+ */
+function setToken(token) {
+  localStorage.setItem("cyber-feed-api-token", token);
 }

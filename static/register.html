@@ -45,9 +45,11 @@
         };
 		
         apiRequest("POST", "register.php", params, null, res => {
-          document.getElementById("message").innerHTML = "Connexion réussie";
+          const jsonRes = JSON.parse(res.responseText);
+          setToken(jsonRes.token);
+          document.getElementById("message").innerHTML = "Création de compte réussie";
         }, err => {
-          document.getElementById("message").innerHTML = "Erreur lors de la creation du compte.";
+          document.getElementById("message").innerHTML = "Erreur lors de la création du compte.";
         });
       } else {
         document.getElementById("message").innerHTML = "Les mots de passe entrés ne correspondent pas.";

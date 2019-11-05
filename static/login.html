@@ -13,14 +13,16 @@
     </header>
 
     <div>
-      <label for="user">Nom d'utilisateur:</label>
-      <input type="text" id="user">
-      <label for="password">Mot de passe:</label>
-      <input type="text" id="password">
-      <button onclick="login()">Log in</button>
+      <label for="username">Nom d'utilisateur :</label>
+      <input type="text" id="username" />
+      <br/>
+      <label for="password">Mot de passe :</label>
+      <input type="password" id="password" />
+      <br/>
+      <button onclick="login()">Connexion</button>
     </div>
-	
-	<div class="message"></div>
+    
+    <div id="message"></div>
 
     <footer>
       Merci de contacter l'ENSIBS pour plus de renseignements.
@@ -34,8 +36,10 @@
         username: username,
         password: password
       };
-	  
+      
       apiRequest("POST", "login.php", params, null, res => {
+        const jsonRes = JSON.parse(res.responseText);
+        setToken(jsonRes.token);
         document.getElementById("message").innerHTML = "Connexion réussie.";
       }, err => {
         document.getElementById("message").innerHTML = "Echec de la connexion.";

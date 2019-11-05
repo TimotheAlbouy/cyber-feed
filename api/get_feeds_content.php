@@ -21,25 +21,45 @@ $user = User::authenticate($headers["Authorization"]);
 // Code
 $feeds = FeedUser::findByUsername($user->username);
 
-$res = [];
+$feedsContent = [];
 foreach ($feeds as $feed) {
   $doc = new DOMDocument();
-  //$xml = @simplexml_load_file($feed->url);
   $doc->load($feed["url"]);
   if ($doc) {
     $itemsXML = $doc->getElementsByTagName("item");
     foreach ($itemsXML as $itemXML) {
-      $item = [
-        "title" => $itemXML->getElementsByTagName("title")[0]->textContent,
-        "description" => $itemXML->getElementsByTagName("description")[0]->textContent,
-        "pubDate" => $itemXML->getElementsByTagName("pubDate")[0]->textContent,
-        "link" => $itemXML->getElementsByTagName("link")[0]->textContent
-      ];
-      $res[] = $item;
+      $item = [];
+      
+      $titleNodes = $itemXML->getElementsByTagName("title");
+      if (sizeof($titleNodes) > 0)
+        $item["title"] = $titleNodes[0]->textContent;
+      
+      $descriptionNodes = $itemXML->getElementsByTagName("description");
+      if (sizeof($descriptionNodes) > 0)
+        $item["description"] = $descriptionNodes[0]->textContent;
+
+      $pubDateNodes = $itemXML->getElementsByTagName("pubDate");
+      if (sizeof($pubDateNodes) > 0)
+        $item["pubDate"] = $pubDateNodes[0]->textContent;
+
+      $linkNodes = $itemXML->getElementsByTagName("link");
+      if (sizeof($linkNodes) > 0)
+        $item["link"] = $linkNodes[0]->textContent;
+
+      $enclosureNodes = $itemXML->getElementsByTagName("enclosure");
+      if (sizeof($enclosureNodes) > 0) {
+        $enclosure = $enclosureNodes[0];
+        if ($enclosure->hasAttribute("url"))
+          $item["imageUrl"] = $enclosure->getAttribute("url");
+        if ($enclosure->hasAttribute("type"))
+          $item["imageType"] = $enclosure->getAttribute("type");
+      }
+      
+      $feedsContent[] = $item;
     }
-    //exitError(400, "Invalid feed (URL invalid or not following the XML format).");
   }
 }
 
+$res = ["feeds" => $feedsContent];
 http_response_code(200);
 echo(json_encode($res));
