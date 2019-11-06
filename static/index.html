@@ -1,18 +1,134 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title>Accueil</title>
-    <meta charset="utf-8" />
+    <title>Flux</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="util.js"></script>
+    <script src="index.js"></script>
+    <script src="feeds.js"></script>
+    <script src="auth.js"></script>
   </head>
+
   <body>
-    <header>
-      <h1>Cyber-feed</h1>
-      <a href="login.html">Se connecter</a>
-      <a href="register.html">S'inscrire</a>
-    </header>
-    <p>
-      Cet aggrégateur RSS a été réalisée dans le cadre du projet de cybersécurité de 2ème année
-      d'ingénieur à l'ENSIBS.
-    </p>
+    
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <span class="navbar-brand" href="#">Cyber-feed</span>
+        <div id="connectedNavButtons" class="btn-group" role="group">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedsModal">
+            Liste des flux
+          </button>
+          <button type="button" class="btn btn-primary" onclick="logout()">
+            Déconnexion
+          </button>
+        </div>
+        <div id="notConnectedNavButtons" class="btn-group" role="group">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+            Connexion
+          </button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+            S'inscrire
+          </button>
+        </div>
+      </nav>
+      
+      <ul id="feedsContent" class="list-group"></ul>
+      <div id="feedsContentMessage"></div>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Connexion</h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="loginUsername">Nom d'utilisateur</label>
+              <input type="text" id="loginUsername" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Mot de passe</label>
+              <input type="password" id="loginPassword" class="form-control" />
+            </div>
+            <div id="loginMessage"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" onclick="login()">Connexion</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registerModalLabel">S'inscrire</h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="registerUsername">Nom d'utilisateur</label>
+              <input type="text" id="registerUsername" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">Mot de passe</label>
+              <input type="password" id="registerPassword" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">Répéter le mot de passe</label>
+              <input type="password" id="registerRepeatPassword" class="form-control" />
+            </div>
+            <div id="registerMessage"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" onclick="register()">S'inscrire</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="feedsModal" tabindex="-1" role="dialog" aria-labelledby="feedsModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Mes flux</h5>
+          </div>
+          <div class="modal-body">
+            <div class="input-group form-group">
+              <input type="url" class="form-control input-group-prepend" />
+              <button type="button" class="btn btn-primary">Ajouter le flux</button>
+            </div>
+            <ul id="feedsUrl" class="list-group"></ul>
+            <div id="feedsUrlMessage"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <template id="feedsContentItem">
+      <li class="list-group-item">
+        <img alt="Image introuvable" class="img-thumbnail rounded float-left w-25 mr-4" />
+        <a class="h3"></a>
+        <p></p>
+      </li>
+    </template>
+
+    <template id="feedsUrlItem">
+      <li class="list-group-item">
+        <a target="_blank" rel="noopener noreferrer"></a>
+        <button class="btn btn-danger">Supprimer</button>
+      </li>
+    </template>
+
   </body>
 </html>

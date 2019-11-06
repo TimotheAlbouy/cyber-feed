@@ -2,6 +2,8 @@
 
 Par Timothé ALBOUY, Arnaud PERNET et Gwenn QUELO, dans le cadre du projet de cybersécurité de deuxième année d'ingénieur à l'ENSIBS.
 
+Cet aggrégateur RSS a été réalisée dans le cadre du projet de cybersécurité de 2ème année d'ingénieur à l'ENSIBS.
+
 ## Utile
 
 **Flux XML :**

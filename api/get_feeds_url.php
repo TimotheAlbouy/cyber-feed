@@ -19,7 +19,7 @@ if (!isset($headers["Authorization"]))
 $user = User::authenticate($headers["Authorization"]);
 
 // Code
-$res = FeedUser::findByUsername($user->username);
+$res = ["feeds" => FeedUser::findByUsername($user->username)];
 
 http_response_code(200);
 echo(json_encode($res));

@@ -62,7 +62,7 @@ function getToken() {
 
 /**
  * Store the token in the session storage.
- * @param {string} token the token
+ * @param {string} token - the token
  */
 function setToken(token) {
   localStorage.setItem("cyber-feed-api-token", token);
