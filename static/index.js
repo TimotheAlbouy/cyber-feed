@@ -19,6 +19,8 @@ function switchToNotConnected() {
   // show and hide the proper navbar buttons
   document.getElementById("connectedNavButtons").style.display = "none";
   document.getElementById("notConnectedNavButtons").style.display = "inherit";
-  // clear the list of feeds
-  document.getElementById("feeds").innerHTML = "";
+  // clear the list of feeds content
+  document.getElementById("feedsContent").innerHTML = "";
+  // clear the list of feeds URL
+  document.getElementById("feedsUrl").innerHTML = "";
 }
