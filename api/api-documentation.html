@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cyber-feed API</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+  
+	<table border="2">
+		<tr>
+			<td><b>Méthode</b></td>
+			<td><b>Route</b></td>
+			<td><b>Paramètres et Contraintes</b></td>
+			<td><b>Jeton</b></td>
+			<td><b>Réponse</b></td>
+			<td><b>Description</b></td>
+		</tr>
+		<tr>
+			<td>POST</td>
+			<td>/api/add_feed.php</td>
+			<td>Utilisateurs identifié -  URL correct et complet</td>
+			<td>OUI</td>
+			<td>/</td>
+			<td>Permet d'ajouter un feed</td>
+		</tr>
+		<tr>
+			<td>DELETE</td>
+			<td>/api/delete_feed.php</td>
+			<td>Utilisateurs identifié -  id du feed à supprimer</td>
+			<td>OUI</td>
+			<td>/</td>
+			<td>Permet de supprimer un feed</td>
+		</tr>
+		<tr>
+			<td>GET</td>
+			<td>/api/get_feed.php</td>
+			<td>Utilisateurs identifié -  URL correct et complet</td>
+			<td>OUI</td>
+			<td>
+				{
+					link:...
+					title:...
+					description:...
+				}
+			</td>
+			<td>Permet de récupérer un feed</td>
+		</tr>
+		<tr>
+			<td>GET</td>
+			<td>/api/get_feeds_content.php</td>
+			<td>Utilisateurs identifié</td>
+			<td>OUI</td>
+			<td>json_encode(["feeds" => $feedsContent])</td>
+			<td>Permet de récupérer le contenu des feeds</td>
+		</tr>
+		<tr>
+			<td>GET</td>
+			<td>/api/get_feeds_url.php</td>
+			<td>Utilisateurs identifié</td>
+			<td>OUI</td>
+			<td>json_encode(["feeds" => FeedUser::findByUsername($user->username)])</td>
+			<td>Permet de récupérer l'url des feeds</td>
+		</tr>
+		<tr>
+			<td>POST</td>
+			<td>/api/login.php</td>
+			<td>Saisies valides et correctes</td>
+			<td>OUI</td>
+			<td>json_encode(["token" => $user->token])</td>
+			<td>Permet à un visiteur de se connecter au site</td>
+		</tr>
+		
+		<tr>
+			<td>POST</td>
+			<td>/api/register.php</td>
+			<td>Saisies valides - Nombre de caractères entre 3 et 36 pour le username</td>
+			<td>OUI</td>
+			<td>json_encode(["token" => $user->token])</td>
+			<td>Permet à un visiteur de s'inscrire au site</td>
+		</tr>
+	</table>
+  
+  </body>
+</html>
