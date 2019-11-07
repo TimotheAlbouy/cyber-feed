@@ -1,3 +1,6 @@
+/*
+ * Refresh the current feeds.
+ */
 function refreshFeeds() {
   const message = document.getElementById("feedsContentMessage");
   const token = getToken();
@@ -31,7 +34,9 @@ function refreshFeeds() {
     message.className = "alert alert-danger";
   });
 }
-
+/*
+ * Display the current list of feeds.
+ */
 function displayFeedsList() {
   const message = document.getElementById("feedsUrlMessage");
   const token = getToken();
