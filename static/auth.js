@@ -1,3 +1,6 @@
+/**
+* Make the user log-in using a `Username` and a `Password`.
+*/
 function login() {
   const message = document.getElementById("loginMessage");
   const username = document.getElementById("loginUsername").value;
@@ -20,6 +23,9 @@ function login() {
   });
 }
 
+/**
+* Make the user register using a `username` and a `password`.
+*/
 function register() {
   const message = document.getElementById("registerMessage");
   const username = document.getElementById("registerUsername").value;
@@ -49,6 +55,9 @@ function register() {
   }
 }
 
+/**
+*Make the user log-out from his account.
+*/
 function logout() {
   setToken("");
   switchToNotConnected();
