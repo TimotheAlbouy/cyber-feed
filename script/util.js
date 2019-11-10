@@ -16,7 +16,6 @@
  */
 function apiRequest(method, route, params, headers, success, error) {
   const req = new XMLHttpRequest();
-
   req.onreadystatechange = function() {
     if (req.readyState === XMLHttpRequest.DONE) {
       if (Math.floor(this.status/100) === 2) // If status code starts with '2', success
@@ -24,17 +23,14 @@ function apiRequest(method, route, params, headers, success, error) {
       else error(this); // Else, error
     }
   };
-
   const url = "/cyber-feed/api/" + route;
   const paramsStr = encodeParams(params);
   req.open(method, url, true);
-
   if (headers !== null) {
     for (const header in headers)
       req.setRequestHeader(header, headers[header]);
   }
   req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
   req.send(paramsStr);
 }
 
@@ -66,4 +62,20 @@ function getToken() {
  */
 function setToken(token) {
   localStorage.setItem("cyber-feed-api-token", token);
+}
+
+/**
+ * Retrieve the username from the session storage.
+ * @returns {string} the username
+ */
+function getUsername() {
+  return localStorage.getItem("cyber-feed-api-username");
+}
+
+/**
+ * Store the username in the session storage.
+ * @param {string} username - the username
+ */
+function setUsername(username) {
+  localStorage.setItem("cyber-feed-api-username", username);
 }

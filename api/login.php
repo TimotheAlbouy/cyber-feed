@@ -28,5 +28,8 @@ if (!password_verify($password, $user->password_hash))
 $user->updateToken();
 
 http_response_code(200);
-$res = ["token" => $user->token];
+$res = [
+  "username" => $username,
+  "token" => $user->token
+];
 echo(json_encode($res));

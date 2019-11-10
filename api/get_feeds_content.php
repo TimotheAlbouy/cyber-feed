@@ -35,26 +35,27 @@ foreach ($feeds as $feed) {
 
 function handleRss($doc, &$feedsContent) {
   $itemsXML = $doc->getElementsByTagName("item");
-
   foreach ($itemsXML as $itemXML) {
     $item = [];
-    
+    /* RSS required fields */
+    // title
     $titleNodes = $itemXML->getElementsByTagName("title");
     if (sizeof($titleNodes) > 0)
       $item["title"] = $titleNodes[0]->textContent;
-    
-    $descriptionNodes = $itemXML->getElementsByTagName("description");
-    if (sizeof($descriptionNodes) > 0)
-      $item["description"] = $descriptionNodes[0]->textContent;
-
-    $pubDateNodes = $itemXML->getElementsByTagName("pubDate");
-    if (sizeof($pubDateNodes) > 0)
-      $item["date"] = $pubDateNodes[0]->textContent;
-
+    // link
     $linkNodes = $itemXML->getElementsByTagName("link");
     if (sizeof($linkNodes) > 0)
       $item["link"] = $linkNodes[0]->textContent;
-
+    // description
+    $descriptionNodes = $itemXML->getElementsByTagName("description");
+    if (sizeof($descriptionNodes) > 0)
+      $item["description"] = $descriptionNodes[0]->textContent;
+    /* RSS optional fields */
+    // pubDate
+    $pubDateNodes = $itemXML->getElementsByTagName("pubDate");
+    if (sizeof($pubDateNodes) > 0)
+      $item["date"] = $pubDateNodes[0]->textContent;
+    // enclosure
     $enclosureNodes = $itemXML->getElementsByTagName("enclosure");
     if (sizeof($enclosureNodes) > 0) {
       $enclosure = $enclosureNodes[0];
@@ -71,26 +72,28 @@ function handleAtom($doc, &$feedsContent) {
 
   foreach ($entriesXML as $entryXML) {
     $entry = [];
-
+    /* Atom required fields */
+    // title
     $titleNodes = $entryXML->getElementsByTagName("title");
     if (sizeof($titleNodes) > 0)
       $entry["title"] = $titleNodes[0]->textContent;
-
-    $summaryNodes = $entryXML->getElementsByTagName("summary");
-    if (sizeof($summaryNodes) > 0)
-      $entry["description"] = $summaryNodes[0]->textContent;
-
+    // updated
     $updatedNodes = $entryXML->getElementsByTagName("updated");
     if (sizeof($updatedNodes) > 0)
       $entry["date"] = $updatedNodes[0]->textContent;
-
+    /* Atom optional fields */
+    // description
+    $summaryNodes = $entryXML->getElementsByTagName("summary");
+    if (sizeof($summaryNodes) > 0)
+      $entry["description"] = $summaryNodes[0]->textContent;
+    // link
     $linkNodes = $entryXML->getElementsByTagName("link");
     if (sizeof($linkNodes) > 0) {
       $link = $linkNodes[0];
       if ($link->hasAttribute("href"))
         $entry["link"] = $link->getAttribute("href");
     }
-    
+    // logo
     $logoNodes = $entryXML->getElementsByTagName("logo");
     if (sizeof($logoNodes) > 0)
       $entry["img"] = $logoNodes[0]->textContent;

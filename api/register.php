@@ -49,5 +49,8 @@ $user->token_expiration = $token_expiration;
 $user->create();
 
 http_response_code(201);
-$res = ["token" => $user->token];
+$res = [
+  "username" => $username,
+  "token" => $user->token
+];
 echo(json_encode($res));

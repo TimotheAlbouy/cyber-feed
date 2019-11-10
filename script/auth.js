@@ -13,6 +13,7 @@ function login() {
   apiRequest("POST", "login.php", params, null, res => {
     const jsonRes = JSON.parse(res.responseText);
     setToken(jsonRes.token);
+    setUsername(jsonRes.username);
     $('#loginModal').modal('hide');
     message.innerHTML = "";
     message.className = "";
@@ -41,6 +42,7 @@ function register() {
     apiRequest("POST", "register.php", params, null, res => {
       const jsonRes = JSON.parse(res.responseText);
       setToken(jsonRes.token);
+      setUsername(jsonRes.username);
       $('#registerModal').modal('hide');
       message.innerHTML = "";
       message.className = "";

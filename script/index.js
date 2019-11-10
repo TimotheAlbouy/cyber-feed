@@ -6,12 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /**
  * Switch the page mode to connected.
- * @display FeedsList
  */
 function switchToConnected() {
   // show and hide the proper navbar buttons
   document.getElementById("connectedNavButtons").style.display = "inherit";
   document.getElementById("notConnectedNavButtons").style.display = "none";
+  // display the welcome message
+  document.getElementById("welcomeUser").innerHTML = "Bienvenue " + getUsername();
   // start refreshing the feed content items
   refreshFeedsContent();
   // refresh the page every 10 minutes
@@ -27,6 +28,8 @@ function switchToNotConnected() {
   // show and hide the proper navbar buttons
   document.getElementById("connectedNavButtons").style.display = "none";
   document.getElementById("notConnectedNavButtons").style.display = "inherit";
+  // remove the welcome message
+  document.getElementById("welcomeUser").innerHTML = "";
   // delete the access token
   setToken("");
   // clear the list of feeds content
