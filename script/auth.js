@@ -1,6 +1,6 @@
 /**
-* Make the user log-in using a `Username` and a `Password`.
-*/
+ * Log-in using the provided `username` and `password`.
+ */
 function login() {
   const message = document.getElementById("loginMessage");
   const username = document.getElementById("loginUsername").value;
@@ -24,8 +24,8 @@ function login() {
 }
 
 /**
-* Make the user register using a `username` and a `password`.
-*/
+ * Register a new account using the provided `username` and `password`.
+ */
 function register() {
   const message = document.getElementById("registerMessage");
   const username = document.getElementById("registerUsername").value;
@@ -53,12 +53,4 @@ function register() {
     message.innerHTML = "Les mots de passe entrés ne correspondent pas.";
     message.className = "alert alert-danger";
   }
-}
-
-/**
-*Make the user log-out from his account.
-*/
-function logout() {
-  setToken("");
-  switchToNotConnected();
 }

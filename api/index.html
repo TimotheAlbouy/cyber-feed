@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cyber-feed API</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Feed aggregator">
+    <meta name="keywords" content="Feed, RSS, Atom, Cyber-feed">
+    <meta name="author" content="Gwenn Quelo, Arnaud Pernet, Timothé Albouy">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <style>
+    code {
+      white-space: pre-wrap;
+    }
+    </style>
+  </head>
+  <body>
+    
+    <div class="container">
+      <h1>Contrat d'interface de l'API Cyber-feed</h1>
+      <p>Les routes qui nécessitent un jeton nécessitent qu'on le place dans l'en-tête <code>Authorization</code>.</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Méthode</th>
+            <th scope="col">Route</th>
+            <th scope="col">Paramètres</th>
+            <th scope="col">Jeton</th>
+            <th scope="col">Réponse</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>POST</td>
+            <td>/api/register.php</td>
+            <td>
+              <p><b>username</b>: Nombre de caractères compris entre 3 et 36</p>
+              <p><b>password</b>: </p> 
+            </td>
+            <td>NON</td>
+            <td>
+<code>{
+  token: string
+}</code>
+            </td>
+            <td>Inscription et récupération du jeton d'accès</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>/api/login.php</td>
+            <td>Saisies valides et correctes</td>
+            <td>NON</td>
+            <td>
+<code>{
+  token: string
+}</code>
+            </td>
+            <td>Connexion et récupération du jeton d'accès</td>
+          </tr>
+          <tr>
+            <td>POST</td>
+            <td>/api/add_feed.php</td>
+            <td>Utilisateurs identifié -  URL correct et complet</td>
+            <td>OUI</td>
+            <td>/</td>
+            <td>Ajout d'un flux</td>
+          </tr>
+          <tr>
+            <td>DELETE</td>
+            <td>/api/delete_feed.php</td>
+            <td>Utilisateurs identifié -  id du feed à supprimer</td>
+            <td>OUI</td>
+            <td>/</td>
+            <td>Suppression d'un flux</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/api/get_feeds_content.php</td>
+            <td>Utilisateurs identifié</td>
+            <td>OUI</td>
+            <td>
+<code>{
+  feeds: [
+    {
+      title: string,
+      description: string,
+      pubDate: string,
+      imageUrl: string,
+      imageType: string
+    },
+    ...
+  ]
+}</code>
+            </td>
+            <td>Permet de récupérer le contenu des feeds</td>
+          </tr>
+          <tr>
+            <td>GET</td>
+            <td>/api/get_feeds_url.php</td>
+            <td>Utilisateurs identifié</td>
+            <td>OUI</td>
+            <td>
+<code>{
+  feeds: [
+    {
+      id: string,
+      url: string
+    },
+    ...
+  ]
+}</code>
+            </td>
+            <td>Récupération de l'URL des flux de l'utilisateur</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+  </body>
+</html>

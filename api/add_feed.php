@@ -40,8 +40,12 @@ $feedUser->feed_id = $feed->id;
 $feedUser->username = $user->username;
 if ($feedUser->exists())
   exitError(409, "The feed already exists in the user's list.");
+
 $feedUser->create();
 
-http_response_code(204);
-$res = null;
+http_response_code(201);
+$res = [
+  "id" => $feed->id,
+  "url" => $feed->url
+];
 echo(json_encode($res));

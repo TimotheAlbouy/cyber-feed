@@ -21,17 +21,15 @@ $user = User::authenticate($headers["Authorization"]);
 if (!isset($_GET["id"]))
   exitError(400, "Missing 'id' field.");
 
-$id = $_GET["id"];
-
-// Code
-
-// TODO : delete Feed if it is not used anymore
-
 $feedUser = new FeedUser();
-$feedUser->feed_id = $id;
+$feedUser->feed_id = $_GET["id"];
 $feedUser->username = $user->username;
+
 if (!$feedUser->exists())
   exitError(404, "The feed does not exist.");
+
+// Code
+// TODO : delete Feed if it is not used anymore
 $feedUser->delete();
 
 http_response_code(204);

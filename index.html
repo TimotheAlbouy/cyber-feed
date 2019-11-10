@@ -3,18 +3,21 @@
   <head>
     <title>Flux</title>
     <meta charset="utf-8"/>
+    <meta name="description" content="Feed aggregator">
+    <meta name="keywords" content="Feed, RSS, Atom, Cyber-feed">
+    <meta name="author" content="Gwenn Quelo, Arnaud Pernet, Timothé Albouy">
+    <link rel="icon" type="image/png" href="static/favicon.png" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="util.js"></script>
-    <script src="index.js"></script>
-    <script src="feeds.js"></script>
-    <script src="auth.js"></script>
+    <script src="script/util.js"></script>
+    <script src="script/index.js"></script>
+    <script src="script/feeds.js"></script>
+    <script src="script/auth.js"></script>
   </head>
 
   <body>
-    
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <span class="navbar-brand" href="#">Cyber-feed</span>
@@ -22,7 +25,7 @@
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedsModal">
             Liste des flux
           </button>
-          <button type="button" class="btn btn-primary" onclick="logout()">
+          <button type="button" class="btn btn-primary" onclick="switchToNotConnected()">
             Déconnexion
           </button>
         </div>
@@ -102,8 +105,8 @@
           </div>
           <div class="modal-body">
             <div class="input-group form-group">
-              <input type="url" class="form-control input-group-prepend" />
-              <button type="button" class="btn btn-primary">Ajouter le flux</button>
+              <input type="url" class="form-control input-group-prepend" id="newFeedUrl" />
+              <button type="button" class="btn btn-primary" onclick="addFeed()">Ajouter le flux</button>
             </div>
             <ul id="feedsUrl" class="list-group"></ul>
             <div id="feedsUrlMessage"></div>
@@ -125,9 +128,12 @@
 
     <template id="feedsUrlItem">
       <li class="list-group-item">
-        <a target="_blank" rel="noopener noreferrer"></a>
-        <button class="btn btn-danger">Supprimer</button>
-        <!-- utiliser un Material Icon -->
+        <div class="input-group">
+          <a class="input-group-text" target="_blank" rel="noopener noreferrer"></a>
+          <button class="btn btn-danger">
+            <img src="static/delete-24px.svg" />
+          </button>
+        </div>
       </li>
     </template>
 

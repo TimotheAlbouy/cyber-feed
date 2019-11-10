@@ -1,6 +1,7 @@
 <?php
 
 require_once("config/core.php");
+
 require_once("model/User.php");
 
 header("Access-Control-Allow-Methods: POST");
@@ -9,14 +10,14 @@ header("Access-Control-Allow-Methods: POST");
 if ($_SERVER["REQUEST_METHOD"] !== "POST")
   exitError(405, "Only POST requests are allowed.");
 
-$username = $_POST["username"];
-$password = $_POST["password"];
-
-if (!isset($username))
+if (!isset($_POST["username"]))
   exitError(400, "Missing 'username' field.");
 
-if (!isset($password))
+if (!isset($_POST["password"]))
   exitError(400, "Missing 'password' field.");
+
+$username = $_POST["username"];
+$password = $_POST["password"];
 
 if (!preg_match("/^[\p{L}0-9]*$/u", $username))
   exitError(400, "Only alphanumerical characters are allowed for the username.");
