@@ -26,37 +26,76 @@ foreach ($feeds as $feed) {
   $doc = new DOMDocument();
   $doc->load($feed["url"]);
   if ($doc) {
-    $itemsXML = $doc->getElementsByTagName("item");
-    foreach ($itemsXML as $itemXML) {
-      $item = [];
-      
-      $titleNodes = $itemXML->getElementsByTagName("title");
-      if (sizeof($titleNodes) > 0)
-        $item["title"] = $titleNodes[0]->textContent;
-      
-      $descriptionNodes = $itemXML->getElementsByTagName("description");
-      if (sizeof($descriptionNodes) > 0)
-        $item["description"] = $descriptionNodes[0]->textContent;
+    if ($doc->firstChild->nodeName === "rss")
+      handleRss($doc, $feedsContent);
+    else if ($doc->firstChild->nodeName === "feed")
+      handleAtom($doc, $feedsContent);
+  }
+}
 
-      $pubDateNodes = $itemXML->getElementsByTagName("pubDate");
-      if (sizeof($pubDateNodes) > 0)
-        $item["pubDate"] = $pubDateNodes[0]->textContent;
+function handleRss($doc, &$feedsContent) {
+  $itemsXML = $doc->getElementsByTagName("item");
 
-      $linkNodes = $itemXML->getElementsByTagName("link");
-      if (sizeof($linkNodes) > 0)
-        $item["link"] = $linkNodes[0]->textContent;
+  foreach ($itemsXML as $itemXML) {
+    $item = [];
+    
+    $titleNodes = $itemXML->getElementsByTagName("title");
+    if (sizeof($titleNodes) > 0)
+      $item["title"] = $titleNodes[0]->textContent;
+    
+    $descriptionNodes = $itemXML->getElementsByTagName("description");
+    if (sizeof($descriptionNodes) > 0)
+      $item["description"] = $descriptionNodes[0]->textContent;
 
-      $enclosureNodes = $itemXML->getElementsByTagName("enclosure");
-      if (sizeof($enclosureNodes) > 0) {
-        $enclosure = $enclosureNodes[0];
-        if ($enclosure->hasAttribute("url"))
-          $item["imageUrl"] = $enclosure->getAttribute("url");
-        if ($enclosure->hasAttribute("type"))
-          $item["imageType"] = $enclosure->getAttribute("type");
-      }
-      
-      $feedsContent[] = $item;
+    $pubDateNodes = $itemXML->getElementsByTagName("pubDate");
+    if (sizeof($pubDateNodes) > 0)
+      $item["date"] = $pubDateNodes[0]->textContent;
+
+    $linkNodes = $itemXML->getElementsByTagName("link");
+    if (sizeof($linkNodes) > 0)
+      $item["link"] = $linkNodes[0]->textContent;
+
+    $enclosureNodes = $itemXML->getElementsByTagName("enclosure");
+    if (sizeof($enclosureNodes) > 0) {
+      $enclosure = $enclosureNodes[0];
+      if ($enclosure->hasAttribute("url"))
+        $item["img"] = $enclosure->getAttribute("url");
     }
+
+    $feedsContent[] = $item;
+  }
+}
+
+function handleAtom($doc, &$feedsContent) {
+  $entriesXML = $doc->getElementsByTagName("entry");
+
+  foreach ($entriesXML as $entryXML) {
+    $entry = [];
+
+    $titleNodes = $entryXML->getElementsByTagName("title");
+    if (sizeof($titleNodes) > 0)
+      $entry["title"] = $titleNodes[0]->textContent;
+
+    $summaryNodes = $entryXML->getElementsByTagName("summary");
+    if (sizeof($summaryNodes) > 0)
+      $entry["description"] = $summaryNodes[0]->textContent;
+
+    $updatedNodes = $entryXML->getElementsByTagName("updated");
+    if (sizeof($updatedNodes) > 0)
+      $entry["date"] = $updatedNodes[0]->textContent;
+
+    $linkNodes = $entryXML->getElementsByTagName("link");
+    if (sizeof($linkNodes) > 0) {
+      $link = $linkNodes[0];
+      if ($link->hasAttribute("href"))
+        $entry["link"] = $link->getAttribute("href");
+    }
+    
+    $logoNodes = $entryXML->getElementsByTagName("logo");
+    if (sizeof($logoNodes) > 0)
+      $entry["img"] = $logoNodes[0]->textContent;
+
+    $feedsContent[] = $entry;
   }
 }
 

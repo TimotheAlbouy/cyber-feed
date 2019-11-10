@@ -12,12 +12,12 @@ function switchToConnected() {
   // show and hide the proper navbar buttons
   document.getElementById("connectedNavButtons").style.display = "inherit";
   document.getElementById("notConnectedNavButtons").style.display = "none";
-  // start refreshing the feeds
-  refreshFeeds();
+  // start refreshing the feed content items
+  refreshFeedsContent();
   // refresh the page every 10 minutes
-  setInterval(refreshFeeds, 600000);
+  setInterval(refreshFeedsContent, 600000);
   // display the list of feed URLs in the proper modal
-  displayFeedsList();
+  displayFeedsUrlList();
 }
 
 /**

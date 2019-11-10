@@ -1,7 +1,7 @@
 /*
- * Refresh the current feeds.
+ * Refresh the feed content items.
  */
-function refreshFeeds() {
+function refreshFeedsContent() {
   const message = document.getElementById("feedsContentMessage");
   const token = getToken();
   const headers = {
@@ -15,8 +15,9 @@ function refreshFeeds() {
       const feedItem = document.importNode(template.content, true);
       
       const image = feedItem.querySelector("img");
-      image.src = feed.imageUrl;
-      image.type = feed.imageType;
+      if (feed.hasOwnProperty("img"))
+        image.src = feed.img;
+      else image.remove();
 
       const title = feedItem.querySelector("a");
       title.innerText = feed.title;
@@ -36,9 +37,9 @@ function refreshFeeds() {
 }
 
 /*
- * Display the current list of feeds.
+ * Display the current list of feed URL items.
  */
-function displayFeedsList() {
+function displayFeedsUrlList() {
   const message = document.getElementById("feedsUrlMessage");
   const headers = {"Authorization": getToken()};
   const feedsList = document.getElementById("feedsUrl");
@@ -46,7 +47,7 @@ function displayFeedsList() {
   apiRequest("GET", "get_feeds_url.php", null, headers, res => {
     const jsonRes = JSON.parse(res.responseText);
     for (const feed of jsonRes.feeds)
-      addFeedToList(feed.id, feed.url, feedsList,template);
+      addFeedUrlToList(feed.id, feed.url, feedsList,template);
     message.innerHTML = "";
     message.className = "";
   }, err => {
@@ -55,7 +56,10 @@ function displayFeedsList() {
   });
 }
 
-function addFeed() {
+/**
+ * Add the feed URL item to the database.
+ */
+function addFeedUrl() {
   const message = document.getElementById("feedsUrlMessage");
   const headers = {"Authorization": getToken()};
   const params = {url: document.getElementById("newFeedUrl").value};
@@ -63,7 +67,7 @@ function addFeed() {
   const template = document.getElementById("feedsUrlItem");
   apiRequest("POST", "add_feed.php", params, headers, res => {
     const feed = JSON.parse(res.responseText);
-    addFeedToList(feed.id, feed.url, feedsList, template);
+    addFeedUrlToList(feed.id, feed.url, feedsList, template);
     message.innerHTML = "Flux créé.";
     message.className = "alert alert-success";
   }, err => {
@@ -73,8 +77,10 @@ function addFeed() {
 }
 //https://www.ouest-france.fr/rss-en-continu.xml
 
-
-function addFeedToList(feedId, feedUrl, feedsList, template) {
+/**
+ * Add the feed URL item to the HTML list.
+ */
+function addFeedUrlToList(feedId, feedUrl, feedsList, template) {
   const message = document.getElementById("feedsUrlMessage");
   const headers = {"Authorization": getToken()};
   const feedItem = document.importNode(template.content, true).querySelector("li");
