@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <title>Flux</title>
+    <title>Cyber-feed</title>
     <meta charset="utf-8"/>
     <meta name="description" content="Feed aggregator">
     <meta name="keywords" content="Feed, RSS, Atom, Cyber-feed">
@@ -15,30 +15,39 @@
     <script src="script/index.js"></script>
     <script src="script/feeds.js"></script>
     <script src="script/auth.js"></script>
+    <style>
+    #navBar {
+      background-color: grey;
+    }
+
+    #navBar a.navbar-brand, #navBar button, #welcomeUser {
+      color: lime;
+    }
+    </style>
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light justify-content-between" style="background-color: dimgrey; color: lime;">
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-between" id="navBar">
       <a class="navbar-brand" href="#">
         <img src="static/logo.svg" width="40" height="40" />
         Cyber-feed
       </a>
       <div id="connectedNavButtons">
-        <span id="welcomeUser" style="padding-right: 2%;"></span>
+        <span id="welcomeUser"></span>
         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedsModal">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#feedsModal">
             Liste des flux
           </button>
-          <button type="button" class="btn btn-primary" onclick="switchToNotConnected()">
+          <button type="button" class="btn btn-secondary" onclick="switchToNotConnected()">
             Déconnexion
           </button>
         </div>
       </div>
       <div id="notConnectedNavButtons" class="btn-group" role="group">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginModal">
           Connexion
         </button>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#registerModal">
           S'inscrire
         </button>
       </div>
