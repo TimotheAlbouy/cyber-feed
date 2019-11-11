@@ -30,10 +30,8 @@ function refreshFeedsContent() {
       message.innerHTML = "";
       message.className = "";
     }
-  }, err => {
-    if (err.status === 401) switchToNotConnected();
-    else handleRequestError("Erreur lors de la récupération des flux.", message);
-  });
+  }, err => handleRequestError(err.status, "Erreur lors de la récupération des flux.", message)
+  );
 }
 
 /*
@@ -50,10 +48,8 @@ function displayFeedsUrlList() {
       addFeedUrlToList(feed.id, feed.url, feedsList,template);
     message.innerHTML = "";
     message.className = "";
-  }, err => {
-    if (err.status === 401) switchToNotConnected();
-    else handleRequestError("Erreur lors de la récupération des flux.", message);
-  });
+  }, err => handleRequestError(err.status, "Erreur lors de la récupération des flux.", message)
+  );
 }
 
 /**
@@ -70,10 +66,8 @@ function addFeedUrl() {
     addFeedUrlToList(feed.id, feed.url, feedsList, template);
     message.innerHTML = "Flux créé.";
     message.className = "alert alert-success";
-  }, err => {
-    if (err.status === 401) switchToNotConnected();
-    else handleRequestError("Erreur lors de la création du flux.", message);
-  });
+  }, err => handleRequestError(err.status, "Erreur lors de la création du flux.", message)
+  );
 }
 //https://www.ouest-france.fr/rss-en-continu.xml
 
@@ -95,10 +89,8 @@ function addFeedUrlToList(feedId, feedUrl, feedsList, template) {
       item.remove();
       message.innerHTML = "Flux supprimé.";
       message.className = "alert alert-success";
-    }, err => {
-      if (err.status === 401) switchToNotConnected();
-      else handleRequestError("Erreur lors de la suppression du flux.", message);
-    });
+    }, err => handleRequestError(err.status, "Erreur lors de la suppression du flux.", message)
+    );
   };
   feedItem.id = "feedItem"+feedId;
   feedsList.appendChild(feedItem);

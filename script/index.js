@@ -38,8 +38,8 @@ function switchToNotConnected() {
   document.getElementById("feedsUrl").innerHTML = "";
 }
 
-function handleRequestError(errorText, messageDisplay) {
-  if (err.status === 401) switchToNotConnected();
+function handleRequestError(status, errorText, messageDisplay) {
+  if (status === 401) switchToNotConnected();
   else {
     messageDisplay.innerHTML = errorText;
     messageDisplay.className = "alert alert-danger";
