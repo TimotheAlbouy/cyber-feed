@@ -69,7 +69,7 @@ function setToken(token) {
  * @returns {string} the username
  */
 function getUsername() {
-  return localStorage.getItem("cyber-feed-api-username");
+  return localStorage.getItem("cyber-feed-username");
 }
 
 /**
@@ -77,5 +77,21 @@ function getUsername() {
  * @param {string} username - the username
  */
 function setUsername(username) {
-  localStorage.setItem("cyber-feed-api-username", username);
+  localStorage.setItem("cyber-feed-username", username);
+}
+
+/**
+ * Retrieve the interval ID from the session storage.
+ * @returns {int} the interval ID
+ */
+function getIntervalId() {
+  return localStorage.getItem("cyber-feed-interval-id");
+}
+
+/**
+ * Store the interval ID in the session storage.
+ * @param {int} intervalId - the interval ID
+ */
+function setIntervalId(intervalId) {
+  localStorage.setItem("cyber-feed-interval-id", intervalId);
 }

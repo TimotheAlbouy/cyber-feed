@@ -16,7 +16,8 @@ function switchToConnected() {
   // start refreshing the feed content items
   refreshFeedsContent();
   // refresh the page every 10 minutes
-  setInterval(refreshFeedsContent, 600000);
+  const intervalId = setInterval(refreshFeedsContent, 600000);
+  setIntervalId(intervalId);
   // display the list of feed URLs in the proper modal
   displayFeedsUrlList();
 }
@@ -32,6 +33,12 @@ function switchToNotConnected() {
   document.getElementById("welcomeUser").innerHTML = "";
   // delete the access token
   setToken("");
+  // stop the fetching of the feeds every 10 minutes
+  const intervalId = getIntervalId();
+  if (intervalId) {
+    clearInterval(intervalId);
+    setIntervalId("");
+  }
   // clear the list of feeds content
   document.getElementById("feedsContent").innerHTML = "";
   // clear the list of feeds URL
