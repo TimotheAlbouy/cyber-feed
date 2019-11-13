@@ -11,6 +11,8 @@ function refreshFeedsContent() {
     const jsonRes = JSON.parse(res.responseText);
     const feedsList = document.getElementById("feedsContent");
     const template = document.getElementById("feedsContentItem");
+    feedsList.innerHTML = "";
+
     for (const feed of jsonRes.feeds) {
       const feedItem = document.importNode(template.content, true);
       
@@ -40,12 +42,10 @@ function refreshFeedsContent() {
 function displayFeedsUrlList() {
   const message = document.getElementById("feedsUrlMessage");
   const headers = {"Authorization": getToken()};
-  const feedsList = document.getElementById("feedsUrl");
-  const template = document.getElementById("feedsUrlItem");
   apiRequest("GET", "get_feeds_url.php", null, headers, res => {
     const jsonRes = JSON.parse(res.responseText);
     for (const feed of jsonRes.feeds)
-      addFeedUrlToList(feed.id, feed.url, feedsList,template);
+      addFeedUrlToList(feed.id, feed.url);
     message.innerHTML = "";
     message.className = "";
   }, err => handleRequestError(err.status, "Erreur lors de la récupération des flux.", message)
@@ -59,11 +59,10 @@ function addFeedUrl() {
   const message = document.getElementById("feedsUrlMessage");
   const headers = {"Authorization": getToken()};
   const params = {url: document.getElementById("newFeedUrl").value};
-  const feedsList = document.getElementById("feedsUrl");
-  const template = document.getElementById("feedsUrlItem");
   apiRequest("POST", "add_feed.php", params, headers, res => {
     const feed = JSON.parse(res.responseText);
-    addFeedUrlToList(feed.id, feed.url, feedsList, template);
+    addFeedUrlToList(feed.id, feed.url);
+    refreshFeedsContent();
     message.innerHTML = "Flux créé.";
     message.className = "alert alert-success";
   }, err => handleRequestError(err.status, "Erreur lors de la création du flux.", message)
@@ -74,7 +73,9 @@ function addFeedUrl() {
 /**
  * Add the feed URL item to the HTML list.
  */
-function addFeedUrlToList(feedId, feedUrl, feedsList, template) {
+function addFeedUrlToList(feedId, feedUrl) {
+  const feedsList = document.getElementById("feedsUrl");
+  const template = document.getElementById("feedsUrlItem");
   const message = document.getElementById("feedsUrlMessage");
   const headers = {"Authorization": getToken()};
   const feedItem = document.importNode(template.content, true).querySelector("li");
@@ -83,10 +84,11 @@ function addFeedUrlToList(feedId, feedUrl, feedsList, template) {
   url.href = feedUrl;
 
   const deleteFeed = feedItem.querySelector("button");
-  deleteFeed.onclick = function() {
+  deleteFeed.onclick = () => {
     apiRequest("DELETE", "delete_feed.php?id="+feedId, null, headers, res => {
       const item = document.getElementById("feedItem"+feedId);
       item.remove();
+      refreshFeedsContent();
       message.innerHTML = "Flux supprimé.";
       message.className = "alert alert-success";
     }, err => handleRequestError(err.status, "Erreur lors de la suppression du flux.", message)
