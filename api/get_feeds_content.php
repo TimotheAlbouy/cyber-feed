@@ -34,6 +34,12 @@ foreach ($feeds as $feed) {
   }
 }
 
+// if a limit of news per page is given
+if (isset($_GET["nb"])) {
+  $newsPerPage = intval($_GET["nb"]);
+  $feedsContent = array_slice($feedsContent, 0, $newsPerPage);
+}
+
 $res = ["feeds" => $feedsContent];
 http_response_code(200);
 echo(json_encode($res));

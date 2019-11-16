@@ -4,10 +4,12 @@
 function refreshFeedsContent() {
   const message = document.getElementById("feedsContentMessage");
   const token = getToken();
-  const headers = {
-    "Authorization": token,
-  };
-  apiRequest("GET", "get_feeds_content.php", null, headers, res => {
+  const headers = {"Authorization": token};
+  
+  const newsPerPage = getNewsPerPage();
+  const query = "get_feeds_content.php?nb="+newsPerPage;
+
+  apiRequest("GET", query, null, headers, res => {
     const jsonRes = JSON.parse(res.responseText);
     const feedsList = document.getElementById("feedsContent");
     const template = document.getElementById("feedsContentItem");

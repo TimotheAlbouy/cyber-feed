@@ -14,6 +14,7 @@
     <script src="script/util.js"></script>
     <script src="script/index.js"></script>
     <script src="script/feeds.js"></script>
+    <script src="script/settings.js"></script>
     <script src="script/auth.js"></script>
     <link rel="stylesheet" type="text/css" href="static/stylesheet.css" />
   </head>
@@ -26,6 +27,9 @@
       </a>
       <div id="connectedNav">
         <span id="welcomeUser" class="navbar-text"></span>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#settingsModal">
+          Paramètres
+        </button>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#feedsModal">
             Liste des flux
@@ -35,13 +39,15 @@
           </button>
         </div>
       </div>
-      <div id="notConnectedNav" class="btn-group" role="group">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginModal">
-          Connexion
-        </button>
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#registerModal">
-          S'inscrire
-        </button>
+      <div id="notConnectedNav">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginModal">
+            Connexion
+          </button>
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#registerModal">
+            S'inscrire
+          </button>
+        </div>
       </div>
     </nav>
 
@@ -49,6 +55,14 @@
       <div id="feedsContentMessage"></div>
       <ul id="feedsContent" class="list-group"></ul>
     </div>
+
+    <template id="feedsContentItem">
+      <li class="list-group-item">
+        <img alt="Image introuvable" class="img-thumbnail rounded float-left w-25 mr-4" />
+        <a class="h3" target="_blank" rel="noopener noreferrer"></a>
+        <p></p>
+      </li>
+    </template>
 
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -125,14 +139,6 @@
       </div>
     </div>
 
-    <template id="feedsContentItem">
-      <li class="list-group-item">
-        <img alt="Image introuvable" class="img-thumbnail rounded float-left w-25 mr-4" />
-        <a class="h3" target="_blank" rel="noopener noreferrer"></a>
-        <p></p>
-      </li>
-    </template>
-
     <template id="feedsUrlItem">
       <li class="list-group-item">
         <div class="input-group">
@@ -143,6 +149,43 @@
         </div>
       </li>
     </template>
+
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">Paramètres</h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="newsPerPage">
+                Nombre de brèves par page
+              </label>
+              <input type="number" min="1" value="10" id="newsPerPage" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="refreshInterval">
+                Temps de rafraîchissement des flux (secondes)
+              </label>
+              <input type="number" min="1" value="600" id="refreshInterval" class="form-control" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="updateSettings()">
+              Mettre à jour
+            </button>
+            <div id="settingsMessage"></div>
+            <div style="display: none;"> <!-- TODO -->
+              <div class="form-group">
+                <label for="settingsPassword">Mot de passe</label>
+                <input type="password" id="settingsPassword" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </body>
 </html>

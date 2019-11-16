@@ -97,6 +97,22 @@ function setIntervalId(intervalId) {
 }
 
 /**
+ * Retrieve the preferred number of news per page from the local storage.
+ * @returns {int} the number of news per page
+ */
+function getNewsPerPage() {
+  return JSON.parse(localStorage.getItem("cyber-feed-news-per-page"));
+}
+
+/**
+ * Store the preferred number of news per page in the local storage.
+ * @param {int} newsPerPage - the number of news per page
+ */
+function setNewsPerPage(newsPerPage) {
+  localStorage.setItem("cyber-feed-news-per-page", JSON.stringify(newsPerPage));
+}
+
+/**
  * Retrieve the isAdmin property from the local storage.
  * @returns {boolean} the isAdmin property
  */

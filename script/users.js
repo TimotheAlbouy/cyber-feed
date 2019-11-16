@@ -8,7 +8,8 @@ function displayUsersList() {
     const jsonRes = JSON.parse(res.responseText);
     for (const user of jsonRes.users)
       addUserToList(user.username, user.is_admin);
-  }, () => {});
+  }, err => handleRequestError(err.status, "Erreur lors de la récupération des utilisateurs.", message)
+  );
 }
 
 /**
@@ -27,7 +28,7 @@ function addUserToList(username, isAdmin) {
   const deleteUser = userItem.querySelector("button");
   usernameItem.innerText = username;
 
-  //toggleIsAdmin
+  //TODO: toggleIsAdmin
   
   deleteUser.onclick = () => {
     apiRequest("DELETE", "delete_user.php?id="+username, null, headers, res => {

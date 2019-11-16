@@ -13,11 +13,10 @@ function switchToConnected() {
   document.getElementById("notConnectedNav").style.display = "none";
   // display the welcome message
   document.getElementById("welcomeUser").innerHTML = "Bienvenue <b>" + getUsername() + "</b>";
-  // start refreshing the feed content items
+  // start refreshing the feeds
   refreshFeedsContent();
-  // refresh the page every 10 minutes
-  const intervalId = setInterval(refreshFeedsContent, 600000);
-  setIntervalId(intervalId);
+  // set the initial settings
+  updateSettings();
   // display the list of feed URLs in the proper modal
   displayFeedsUrlList();
 }
@@ -31,12 +30,8 @@ function switchToNotConnected() {
   document.getElementById("notConnectedNav").style.display = "inherit";
   // remove the welcome message
   document.getElementById("welcomeUser").innerHTML = "";
-  // stop the fetching of the feeds every 10 minutes
-  const intervalId = getIntervalId();
-  if (intervalId) {
-    clearInterval(intervalId);
-    setIntervalId("");
-  }
+  // stop the fetching of the feeds
+  stopRefreshing();
   // delete the data stored in the local storage
   setToken("");
   setUsername("");

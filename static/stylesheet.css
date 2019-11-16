@@ -6,8 +6,8 @@
   color: lime;
 }
 
-#welcomeUser {
-  margin-right: 10px;
+#connectedNav > *, #notConnectedNav > * {
+  margin-left: 10px;
 }
 
 /* Custom switch button */
