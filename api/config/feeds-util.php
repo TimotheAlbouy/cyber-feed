@@ -11,7 +11,7 @@ function handleRss($doc, &$feedsContent) {
     /* RSS required fields */
     $titleNodes = $itemXML->getElementsByTagName("title");
     if (sizeof($titleNodes) > 0)
-      $item["title"] = $titleNodes[0]->textContent;
+      $item["title"] = trim($titleNodes[0]->textContent);
 
     $linkNodes = $itemXML->getElementsByTagName("link");
     if (sizeof($linkNodes) > 0)
@@ -19,7 +19,7 @@ function handleRss($doc, &$feedsContent) {
 
     $descriptionNodes = $itemXML->getElementsByTagName("description");
     if (sizeof($descriptionNodes) > 0)
-      $item["description"] = $descriptionNodes[0]->textContent;
+      $item["description"] = trim($descriptionNodes[0]->textContent);
     
     /* RSS optional fields */
     $pubDateNodes = $itemXML->getElementsByTagName("pubDate");
@@ -51,7 +51,7 @@ function handleAtom($doc, &$feedsContent) {
     /* Atom required fields */
     $titleNodes = $entryXML->getElementsByTagName("title");
     if (sizeof($titleNodes) > 0)
-      $entry["title"] = $titleNodes[0]->textContent;
+      $entry["title"] = trim($titleNodes[0]->textContent);
 
     $updatedNodes = $entryXML->getElementsByTagName("updated");
     if (sizeof($updatedNodes) > 0) {
@@ -62,7 +62,7 @@ function handleAtom($doc, &$feedsContent) {
     /* Atom optional fields */
     $summaryNodes = $entryXML->getElementsByTagName("summary");
     if (sizeof($summaryNodes) > 0)
-      $entry["description"] = $summaryNodes[0]->textContent;
+      $entry["description"] = trim($summaryNodes[0]->textContent);
 
     $linkNodes = $entryXML->getElementsByTagName("link");
     if (sizeof($linkNodes) > 0) {
@@ -103,7 +103,7 @@ function preprocessItem(&$item) {
   //else $item["title"] = htmlspecialchars($item["title"], ENT_QUOTES, "UTF-8");
 
   if (!isset($item["description"]))
-    $item["description"] = "No description";
+    $item["description"] = "";
   //else $item["description"] = htmlspecialchars($item["description"], ENT_QUOTES, "UTF-8");
 
   if (!isset($item["link"]))

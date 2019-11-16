@@ -49,7 +49,7 @@ function encodeParams(params) {
 }
 
 /**
- * Retrieve the token from the session storage.
+ * Retrieve the token from the local storage.
  * @returns {string} the token
  */
 function getToken() {
@@ -57,7 +57,7 @@ function getToken() {
 }
 
 /**
- * Store the token in the session storage.
+ * Store the token in the local storage.
  * @param {string} token - the token
  */
 function setToken(token) {
@@ -65,7 +65,7 @@ function setToken(token) {
 }
 
 /**
- * Retrieve the username from the session storage.
+ * Retrieve the username from the local storage.
  * @returns {string} the username
  */
 function getUsername() {
@@ -73,7 +73,7 @@ function getUsername() {
 }
 
 /**
- * Store the username in the session storage.
+ * Store the username in the local storage.
  * @param {string} username - the username
  */
 function setUsername(username) {
@@ -81,17 +81,47 @@ function setUsername(username) {
 }
 
 /**
- * Retrieve the interval ID from the session storage.
+ * Retrieve the interval ID from the local storage.
  * @returns {int} the interval ID
  */
 function getIntervalId() {
-  return localStorage.getItem("cyber-feed-interval-id");
+  return JSON.parse(localStorage.getItem("cyber-feed-interval-id"));
 }
 
 /**
- * Store the interval ID in the session storage.
+ * Store the interval ID in the local storage.
  * @param {int} intervalId - the interval ID
  */
 function setIntervalId(intervalId) {
-  localStorage.setItem("cyber-feed-interval-id", intervalId);
+  localStorage.setItem("cyber-feed-interval-id", JSON.stringify(intervalId));
+}
+
+/**
+ * Retrieve the isAdmin property from the local storage.
+ * @returns {boolean} the isAdmin property
+ */
+function getIsAdmin() {
+  return JSON.parse(localStorage.getItem("cyber-feed-is-admin"));
+}
+
+/**
+ * Store the isAdmin property in the local storage.
+ * @param {boolean} isAdmin - the isAdmin property
+ */
+function setIsAdmin(isAdmin) {
+  localStorage.setItem("cyber-feed-is-admin", JSON.stringify(isAdmin));
+}
+
+/**
+ * Handle the error of a failed request.
+ * @param {int} status - the HTTP status code
+ * @param {string} errorText - the message to display
+ * @param {HTMLElement} messageDisplay - the element where the message is displayed
+ */
+function handleRequestError(status, errorText, messageDisplay) {
+  if (status === 401) switchToNotConnected();
+  else {
+    messageDisplay.innerHTML = errorText;
+    messageDisplay.className = "alert alert-danger";
+  }
 }

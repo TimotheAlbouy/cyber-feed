@@ -68,25 +68,26 @@ function addFeedUrl() {
   }, err => handleRequestError(err.status, "Erreur lors de la création du flux.", message)
   );
 }
-//https://www.ouest-france.fr/rss-en-continu.xml
 
 /**
  * Add the feed URL item to the HTML list.
+ * @param {string} id - the ID of the feed
+ * @param {string} url - the URL of the feed
  */
-function addFeedUrlToList(feedId, feedUrl) {
+function addFeedUrlToList(id, url) {
   const feedsList = document.getElementById("feedsUrl");
   const template = document.getElementById("feedsUrlItem");
   const message = document.getElementById("feedsUrlMessage");
   const headers = {"Authorization": getToken()};
   const feedItem = document.importNode(template.content, true).querySelector("li");
-  const url = feedItem.querySelector("a");
-  url.innerText = feedUrl;
-  url.href = feedUrl;
-
+  const urlItem = feedItem.querySelector("a");
   const deleteFeed = feedItem.querySelector("button");
+  urlItem.innerText = url;
+  urlItem.href = url;
+
   deleteFeed.onclick = () => {
-    apiRequest("DELETE", "delete_feed.php?id="+feedId, null, headers, res => {
-      const item = document.getElementById("feedItem"+feedId);
+    apiRequest("DELETE", "delete_feed.php?id="+id, null, headers, res => {
+      const item = document.getElementById("feedItem-"+id);
       item.remove();
       refreshFeedsContent();
       message.innerHTML = "Flux supprimé.";
@@ -94,6 +95,6 @@ function addFeedUrlToList(feedId, feedUrl) {
     }, err => handleRequestError(err.status, "Erreur lors de la suppression du flux.", message)
     );
   };
-  feedItem.id = "feedItem"+feedId;
+  feedItem.id = "feedItem-"+id;
   feedsList.appendChild(feedItem);
 }

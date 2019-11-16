@@ -124,8 +124,39 @@ class User extends Model {
         "token" => $this->token,
         "token_expiration" => $this->token_expiration
       ]);
-      $this->is_admin = false;
       return $this;
+    } catch (PDOException $e) {
+      exitError(500, "Internal error.");
+    }
+  }
+
+  /**
+   * Give all the users of the database.
+   * @return array
+   *     the list of retrieved users
+   */
+  public static function all() {
+    try {
+      $db = Database::getInstance();
+      $sql = "SELECT username, is_admin, token, token_expiration FROM `User`";
+      $stmt = $db->prepare($sql);
+      $stmt->execute();
+      
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      exitError(500, "Internal error.");
+    }
+  }
+
+  /**
+   * Remove the users from the database.
+   */
+  public function delete() {
+    try {
+      $db = Database::getInstance();
+      $sql = "DELETE FROM `User` WHERE username = :username";
+      $stmt = $db->prepare($sql);
+      $stmt->execute(["username" => $this->username]);
     } catch (PDOException $e) {
       exitError(500, "Internal error.");
     }

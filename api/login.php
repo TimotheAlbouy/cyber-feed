@@ -30,6 +30,7 @@ $user->updateToken();
 http_response_code(200);
 $res = [
   "username" => $username,
-  "token" => $user->token
+  "token" => $user->token,
+  "isAdmin" => boolval($user->is_admin)
 ];
 echo(json_encode($res));

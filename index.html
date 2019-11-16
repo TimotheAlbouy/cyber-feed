@@ -15,15 +15,7 @@
     <script src="script/index.js"></script>
     <script src="script/feeds.js"></script>
     <script src="script/auth.js"></script>
-    <style>
-    #navBar {
-      background-color: grey;
-    }
-
-    #navBar a.navbar-brand, #navBar button, #welcomeUser {
-      color: lime;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="static/stylesheet.css" />
   </head>
 
   <body>
@@ -32,8 +24,8 @@
         <img src="static/logo.svg" width="40" height="40" />
         Cyber-feed
       </a>
-      <div id="connectedNavButtons">
-        <span id="welcomeUser"></span>
+      <div id="connectedNav">
+        <span id="welcomeUser" class="navbar-text"></span>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#feedsModal">
             Liste des flux
@@ -43,7 +35,7 @@
           </button>
         </div>
       </div>
-      <div id="notConnectedNavButtons" class="btn-group" role="group">
+      <div id="notConnectedNav" class="btn-group" role="group">
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginModal">
           Connexion
         </button>
@@ -136,7 +128,7 @@
     <template id="feedsContentItem">
       <li class="list-group-item">
         <img alt="Image introuvable" class="img-thumbnail rounded float-left w-25 mr-4" />
-        <a class="h3"></a>
+        <a class="h3" target="_blank" rel="noopener noreferrer"></a>
         <p></p>
       </li>
     </template>

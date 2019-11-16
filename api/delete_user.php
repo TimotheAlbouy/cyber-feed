@@ -17,20 +17,20 @@ if (!isset($headers["Authorization"]))
   exitError(401, "No token provided.");
 
 $user = User::authenticate($headers["Authorization"]);
-if (!$user->is_admin())
-	exitError(401, "User is not admin")
+
+if (!$user->is_admin)
+	exitError(403, "The provided token is not admin.");
 
 if (!isset($_GET["id"]))
   exitError(400, "Missing 'id' field.");
 
-$user = new User();
-$user->id = $_GET["id"];
+$userToDelete = User::findById($_GET["id"]);
 
-if (!$user->exists())
-  exitError(404, "The user does not exist.");
+if (!isset($userToDelete))
+  exitError(400, "The user to delete does not exist.");
 
 // Code
-$user->delete();
+$userToDelete->delete();
 
 http_response_code(204);
 $res = null;

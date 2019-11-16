@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (getToken())
+  if (getToken() && getIsAdmin())
     switchToConnected();
   else switchToNotConnected();
 });
@@ -13,13 +13,8 @@ function switchToConnected() {
   document.getElementById("notConnectedNav").style.display = "none";
   // display the welcome message
   document.getElementById("welcomeUser").innerHTML = "Bienvenue <b>" + getUsername() + "</b>";
-  // start refreshing the feed content items
-  refreshFeedsContent();
-  // refresh the page every 10 minutes
-  const intervalId = setInterval(refreshFeedsContent, 600000);
-  setIntervalId(intervalId);
-  // display the list of feed URLs in the proper modal
-  displayFeedsUrlList();
+  // display the list of users
+  displayUsersList();
 }
 
 /**
@@ -31,18 +26,10 @@ function switchToNotConnected() {
   document.getElementById("notConnectedNav").style.display = "inherit";
   // remove the welcome message
   document.getElementById("welcomeUser").innerHTML = "";
-  // stop the fetching of the feeds every 10 minutes
-  const intervalId = getIntervalId();
-  if (intervalId) {
-    clearInterval(intervalId);
-    setIntervalId("");
-  }
   // delete the data stored in the local storage
   setToken("");
   setUsername("");
   setIsAdmin(false);
-  // clear the list of feeds content
-  document.getElementById("feedsContent").innerHTML = "";
-  // clear the list of feeds URL
-  document.getElementById("feedsUrl").innerHTML = "";
+  // clear the list of users
+  document.getElementById("users").innerHTML = "";
 }

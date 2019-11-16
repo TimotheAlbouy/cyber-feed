@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Cyber-feed</title>
+    <meta charset="utf-8"/>
+    <meta name="description" content="Feed aggregator">
+    <meta name="keywords" content="Feed, RSS, Atom, Cyber-feed">
+    <meta name="author" content="Gwenn Quelo, Arnaud Pernet, Timothé Albouy">
+    <link rel="icon" type="image/png" href="static/favicon.png" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script/util.js"></script>
+    <script src="script/auth.js"></script>
+    <script src="script/admin.js"></script>
+    <script src="script/users.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/stylesheet.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-between" id="navBar">
+      <a class="navbar-brand" href="#">
+        <img src="static/logo.svg" width="40" height="40" />
+        Cyber-feed
+      </a>
+      <div id="connectedNav">
+        <span id="welcomeUser" class="navbar-text"></span>
+        <button type="button" class="btn btn-secondary" onclick="switchToNotConnected()">
+          Déconnexion
+        </button>
+      </div>
+      <div id="notConnectedNav">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginModal">
+          Connexion
+        </button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div id="usersMessage"></div>
+      <ul id="users" class="list-group"></ul>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Connexion admin</h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="loginUsername">Nom d'utilisateur</label>
+              <input type="text" id="loginUsername" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="loginPassword">Mot de passe</label>
+              <input type="password" id="loginPassword" class="form-control" />
+            </div>
+            <div id="loginMessage"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" onclick="login(true)">Connexion</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <template id="userItem">
+      <li class="list-group-item">
+        <span></span>
+        <label class="switch">
+          <input type="checkbox" />
+          <span class="slider"></span>
+        </label>
+        <button class="btn btn-danger">
+          <img src="static/delete-24px.svg" />
+        </button>
+      </li>
+    </template>
+  </body>
+</html>
