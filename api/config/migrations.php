@@ -27,8 +27,10 @@ CREATE OR REPLACE TABLE `Feed` (
 
 $migrations["FeedUser"] = "
 CREATE OR REPLACE TABLE `FeedUser` (
-  feed_id VARCHAR(255) REFERENCES `Feed`(id),
-  username VARCHAR(255) REFERENCES `User`(username),
+  feed_id INT,
+  FOREIGN KEY (feed_id) REFERENCES `Feed`(id) ON DELETE CASCADE,
+  username VARCHAR(36),
+  FOREIGN KEY (username) REFERENCES `User`(username) ON DELETE CASCADE,
   PRIMARY KEY(username, feed_id)
 );
 ";
