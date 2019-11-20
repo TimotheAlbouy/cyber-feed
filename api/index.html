@@ -63,7 +63,7 @@
           <tr>
             <td>POST</td>
             <td>/api/add_feed.php</td>
-            <td>Utilisateurs identifié -  URL correct et complet</td>
+            <td>Utilisateur identifié -  URL correct et complet</td>
             <td>OUI</td>
             <td>/</td>
             <td>Ajout d'un flux</td>
@@ -71,7 +71,7 @@
           <tr>
             <td>DELETE</td>
             <td>/api/delete_feed.php</td>
-            <td>Utilisateurs identifié -  id du feed à supprimer</td>
+            <td>Utilisateur identifié -  id du feed à supprimer</td>
             <td>OUI</td>
             <td>/</td>
             <td>Suppression d'un flux</td>
@@ -79,7 +79,7 @@
           <tr>
             <td>GET</td>
             <td>/api/get_feeds_content.php</td>
-            <td>Utilisateurs identifié</td>
+            <td>Utilisateur identifié</td>
             <td>OUI</td>
             <td>
 <code>{
@@ -114,6 +114,41 @@
 }</code>
             </td>
             <td>Récupération de l'URL des flux de l'utilisateur</td>
+          </tr>
+		  <tr>
+            <td>POST</td>
+            <td>/api/delete_own_account.php</td>
+            <td>Utilisateur identifié</td>
+            <td>OUI</td>
+            <td>/</td>
+            <td>Suppression d'un compte</td>
+          </tr>
+		  <tr>
+            <td>POST</td>
+            <td>/api/delete_user.php</td>
+            <td>Utilisateur identifié</td>
+            <td>OUI</td>
+            <td>/</td>
+            <td>Suppression d'un utilisateur</td>
+          </tr>
+		  <tr>
+            <td>GET</td>
+            <td>/api/get_users.php</td>
+            <td>Utilisateur identifié</td>
+            <td>OUI</td>
+            <td>
+<code>{
+  users: [
+    {
+      username: string,
+      password_hash: string,
+      is_admin: boolean
+    },
+    ...
+  ]
+}</code>
+            </td>
+            <td>Permet de récupérer les utilisateurs</td>
           </tr>
         </tbody>
       </table>
