@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Cyber-feed</title>
+    <meta charset="utf-8"/>
+    <meta name="description" content="Feed aggregator">
+    <meta name="keywords" content="Feed, RSS, Atom, Cyber-feed">
+    <meta name="author" content="Gwenn Quelo, Arnaud Pernet, Timothé Albouy">
+    <link rel="icon" type="image/png" href="static/favicon.png" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="script/util.js"></script>
+    <script src="script/passive.js"></script>
+    <script src="script/feeds.js"></script>
+    <script src="script/settings.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/stylesheet.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light justify-content-between" id="navBar">
+      <a class="navbar-brand" href="#">
+        <img src="static/logo.svg" width="40" height="40" />
+        Cyber-feed
+      </a>
+      <div>
+        <a class="btn btn-secondary" href="index.html">
+          Version active
+        </a>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#settingsModal">
+          Paramètres
+        </button>
+      </div>
+    </nav>
+
+    <div class="container">
+      <br />
+      <div class="carousel slide" data-ride="carousel" id="feedsCarousel">
+        <div class="carousel-inner" id="feedsContent"></div>
+        <a class="carousel-control-prev" href="#feedsCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Précédent</span>
+        </a>
+        <a class="carousel-control-next" href="#feedsCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Suivant</span>
+        </a>
+      </div>
+      <div id="feedsContentMessage"></div>
+    </div>
+
+    <template id="feedsContentItem">
+      <div class="carousel-item">
+        <img class="d-block w-100">
+        <div class="carousel-caption d-none d-md-block carouselCaption">
+          <h4></h4>
+        </div>
+      </div>
+    </template>
+
+    <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">Paramètres</h5>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="newsPerPage">
+                Nombre de brèves par page
+              </label>
+              <input type="number" min="1" value="10" id="newsPerPage" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="refreshInterval">
+                Temps de rafraîchissement des flux (secondes)
+              </label>
+              <input type="number" min="1" value="600" id="refreshInterval" class="form-control" />
+            </div>
+            <button type="button" class="btn btn-primary" onclick="updateSettings()">
+              Mettre à jour
+            </button>
+            <div id="settingsMessage"></div>
+            <div style="display: none;"> <!-- TODO -->
+              <div class="form-group">
+                <label for="settingsPassword">Mot de passe</label>
+                <input type="password" id="settingsPassword" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

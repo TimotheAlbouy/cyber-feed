@@ -11,29 +11,7 @@ function refreshFeedsContent() {
 
   apiRequest("GET", query, null, headers, res => {
     const jsonRes = JSON.parse(res.responseText);
-    const feedsList = document.getElementById("feedsContent");
-    const template = document.getElementById("feedsContentItem");
-    feedsList.innerHTML = "";
-
-    for (const feed of jsonRes.feeds) {
-      const feedItem = document.importNode(template.content, true);
-      
-      const image = feedItem.querySelector("img");
-      if (feed.hasOwnProperty("img"))
-        image.src = feed.img;
-      else image.remove();
-
-      const title = feedItem.querySelector("a");
-      title.innerText = feed.title;
-      title.href = feed.link;
-
-      const description = feedItem.querySelector("p");
-      description.innerText = feed.description;
-
-      feedsList.appendChild(feedItem);
-      message.innerHTML = "";
-      message.className = "";
-    }
+    addFeeds(jsonRes);
   }, err => handleRequestError(err.status, "Erreur lors de la récupération des flux.", message)
   );
 }

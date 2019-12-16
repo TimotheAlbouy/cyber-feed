@@ -2,12 +2,25 @@
   background-color: grey;
 }
 
-#navBar a.navbar-brand, #navBar button, #welcomeUser {
+#navBar a.navbar-brand, #navBar button, #navBar a, #welcomeUser {
   color: lime;
 }
 
 #connectedNav > *, #notConnectedNav > * {
   margin-left: 10px;
+}
+
+.carouselCaption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  text-align: center;
+  background: rgba(0,0,0,0.4);
 }
 
 /* Custom switch button */

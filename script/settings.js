@@ -1,5 +1,4 @@
 function updateSettings() {
-  const message = document.getElementById("settingsMessage");
   // handle the newsPerPage input
   const newsPerPage = document.getElementById("newsPerPage");
   const nb = parseInt(newsPerPage.value);
